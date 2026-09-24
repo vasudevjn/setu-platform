@@ -182,20 +182,24 @@ const fromRow = {
 
 export class DbError extends Error {
   kind: 'missing' | 'network' | 'other'
-  constructor(message: string, kind: DbError['kind']) {
+  /** What Supabase actually said, to help find the cause. */
+  detail: string
+  constructor(message: string, kind: DbError['kind'], detail = message) {
     super(message)
     this.kind = kind
+    this.detail = detail
   }
 }
 
 function fail(error: { message: string; code?: string }): never {
   const code = error.code ?? ''
+  const detail = [code, error.message].filter(Boolean).join(': ')
   // PGRST205 / 42P01: the table is not in the database yet, so the migrations have not run.
   if (code === 'PGRST205' || code === '42P01' || /schema cache|does not exist/i.test(error.message)) {
-    throw new DbError('The Setu tables are not in this database yet.', 'missing')
+    throw new DbError('The Setu tables are not in this database yet.', 'missing', detail)
   }
-  if (/fetch|network|failed to/i.test(error.message)) throw new DbError(error.message, 'network')
-  throw new DbError(error.message, 'other')
+  if (/fetch|network|failed to/i.test(error.message)) throw new DbError(error.message, 'network', detail)
+  throw new DbError(error.message, 'other', detail)
 }
 
 /* ---- read ---- */

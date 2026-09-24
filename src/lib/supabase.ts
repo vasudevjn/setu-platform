@@ -23,6 +23,15 @@ const key = (
 
 export const isRemote = url !== '' && key !== ''
 
+/** Only the host name (not a secret). Shown on the setup screen so you can check the app points at the right project. */
+export const supabaseHost = (() => {
+  try {
+    return new URL(url).host
+  } catch {
+    return ''
+  }
+})()
+
 let client: Promise<SupabaseClient> | null = null
 
 /** Loads the Supabase library on first use, so local mode never downloads it. */

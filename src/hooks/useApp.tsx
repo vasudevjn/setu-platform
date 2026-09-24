@@ -273,7 +273,7 @@ function reducer(state: AppState, action: Action): AppState {
 export type DataStatus =
   | { status: 'loading' }
   | { status: 'ready' }
-  | { status: 'error'; kind: 'empty' | 'missing' | 'network' | 'other'; message: string }
+  | { status: 'error'; kind: 'empty' | 'missing' | 'network' | 'other'; message: string; detail?: string }
 
 interface AppContextValue {
   state: AppState
@@ -344,7 +344,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       } catch (e) {
         if (initial) {
           const kind = e instanceof DbError ? e.kind : 'other'
-          setData({ status: 'error', kind, message: e instanceof Error ? e.message : 'Something went wrong.' })
+          setData({
+            status: 'error',
+            kind,
+            message: e instanceof Error ? e.message : 'Something went wrong.',
+            detail: e instanceof DbError ? e.detail : undefined,
+          })
         }
         // Later background reads fail quietly and try again on the next tick.
       }
