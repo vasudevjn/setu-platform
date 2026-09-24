@@ -1,0 +1,31 @@
+# Supabase project settings for the Supabase CLI and the GitHub integration.
+# The hosted project itself is configured in the Supabase dashboard.
+# This file mainly tells the CLI where things live and which Postgres version to use locally.
+
+project_id = "setu-platform"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+# Must match the major version of your hosted project (Dashboard > Settings > Infrastructure).
+major_version = 17
+
+[db.migrations]
+enabled = true
+
+[realtime]
+enabled = true
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"

@@ -1,0 +1,110 @@
+import type { SME } from '../types'
+
+/**
+ * "Visited by Setu" only appears for businesses with verified: true.
+ * Kalyan Accounting Services and Sahyadri Foods are waiting for a visit,
+ * so the admin can verify them live in the demo.
+ */
+export const mockSMEs: SME[] = [
+  {
+    id: 'sme_sharma',
+    name: 'Sharma Traders',
+    kind: 'Wholesale grocery',
+    ownerName: 'Ramesh Sharma',
+    ownerFirstName: 'Ramesh',
+    phone: '+91 98230 11876',
+    area: 'Market Yard, Pune',
+    town: 'Pune',
+    staff: '12 people',
+    sinceYear: 2009,
+    about:
+      'A family-run wholesale grocery supplier at Market Yard. We supply about 80 shops across Pune and keep our books, stock and billing in-house.',
+    distanceKm: 3,
+    verified: true,
+    visitedOn: '2025-10-11',
+    submittedOn: '2025-10-05',
+    onboarded: true,
+    tone: 'apricot',
+  },
+  {
+    id: 'sme_patel',
+    name: 'Patel Auto Parts',
+    kind: 'Auto spares retail',
+    ownerName: 'Hitesh Patel',
+    ownerFirstName: 'Hitesh',
+    phone: '+91 98500 33418',
+    area: 'Swargate, Pune',
+    town: 'Pune',
+    staff: '8 people',
+    sinceYear: 2004,
+    about:
+      'A busy two-wheeler and car spares shop. We stock over 3,000 parts and want help keeping the stock register accurate.',
+    distanceKm: 6,
+    verified: true,
+    visitedOn: '2025-10-09',
+    submittedOn: '2025-10-03',
+    onboarded: true,
+    tone: 'teal',
+  },
+  {
+    id: 'sme_mcomp',
+    name: 'Maharashtra Components',
+    kind: 'Metal parts maker',
+    ownerName: 'Vijay Joshi',
+    ownerFirstName: 'Vijay',
+    phone: '+91 98811 60245',
+    area: 'Bhosari MIDC, Pune',
+    town: 'Pune',
+    staff: '40 people',
+    sinceYear: 1998,
+    about:
+      'We make machined metal components for local auto and machinery companies. Our small office team could use a hand with orders and delivery tracking.',
+    distanceKm: 5,
+    verified: true,
+    visitedOn: '2025-10-10',
+    submittedOn: '2025-10-04',
+    onboarded: true,
+    tone: 'apricot',
+  },
+  {
+    id: 'sme_kalyan',
+    name: 'Kalyan Accounting Services',
+    kind: 'Accounting and tax',
+    ownerName: 'Meena Kulkarni',
+    ownerFirstName: 'Meena',
+    phone: '+91 99220 78125',
+    area: 'Kothrud, Pune',
+    town: 'Pune',
+    staff: '6 people',
+    sinceYear: 2014,
+    about:
+      'A small accounting office that handles GST, billing and books for about 60 local shops. Busy at every month end.',
+    distanceKm: 2,
+    verified: false,
+    submittedOn: '2025-10-12',
+    onboarded: true,
+    tone: 'teal',
+  },
+  {
+    id: 'sme_sahyadri',
+    name: 'Sahyadri Foods',
+    kind: 'Packaged foods',
+    ownerName: 'Anita More',
+    ownerFirstName: 'Anita',
+    phone: '+91 94220 51789',
+    area: 'Hadapsar, Pune',
+    town: 'Pune',
+    staff: '25 people',
+    sinceYear: 2016,
+    about:
+      'We make pickles, papads and ready mixes, sold in local shops. We want to reach more homes on Instagram and WhatsApp.',
+    distanceKm: 4,
+    verified: false,
+    submittedOn: '2025-10-13',
+    onboarded: true,
+    tone: 'apricot',
+  },
+]
+
+export const DEMO_SME_ID = 'sme_sharma'
+export const SETU_TOWN = 'Pune'
