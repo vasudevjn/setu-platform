@@ -6,15 +6,20 @@ import { AppProvider } from './hooks/useApp'
 import { ToastProvider } from './components/ui/Toast'
 import { DataGate } from './components/DataGate'
 import { router } from './router'
+import { LangBoundary, LangProvider } from './lib/i18n'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ToastProvider>
-      <AppProvider>
-        <DataGate>
-          <RouterProvider router={router} />
-        </DataGate>
-      </AppProvider>
-    </ToastProvider>
+    <LangProvider>
+      <ToastProvider>
+        <AppProvider>
+          <DataGate>
+            <LangBoundary>
+              <RouterProvider router={router} />
+            </LangBoundary>
+          </DataGate>
+        </AppProvider>
+      </ToastProvider>
+    </LangProvider>
   </StrictMode>,
 )

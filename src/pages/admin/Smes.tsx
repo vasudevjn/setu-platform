@@ -11,6 +11,7 @@ import { SmeDetailSheet } from '../../components/admin/SmeDetailSheet'
 import { openingsOfSme } from '../../lib/selectors'
 import { shortDate, plural } from '../../lib/format'
 import type { SME } from '../../types'
+import { t } from '../../lib/i18n'
 
 type Filter = 'all' | 'waiting' | 'verified'
 
@@ -23,11 +24,11 @@ export default function AdminSmes() {
 
   return (
     <div className="flex flex-col gap-5">
-      <PageTitle title="SMEs" sub={`${state.smes.filter((s) => s.verified).length} visited, ${state.smes.filter((s) => !s.verified).length} waiting for a visit`} />
-      <div role="group" aria-label="Filter businesses" className="flex flex-wrap gap-2">
-        <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>All</Chip>
-        <Chip selected={filter === 'waiting'} onClick={() => setFilter('waiting')}>Waiting for visit</Chip>
-        <Chip selected={filter === 'verified'} onClick={() => setFilter('verified')}>Visited</Chip>
+      <PageTitle title={t('SMEs')} sub={t('{visited} visited, {waiting} waiting for a visit', { visited: state.smes.filter((s) => s.verified).length, waiting: state.smes.filter((s) => !s.verified).length })} />
+      <div role="group" aria-label={t('Filter businesses')} className="flex flex-wrap gap-2">
+        <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>{t('All')}</Chip>
+        <Chip selected={filter === 'waiting'} onClick={() => setFilter('waiting')}>{t('Waiting for visit')}</Chip>
+        <Chip selected={filter === 'verified'} onClick={() => setFilter('verified')}>{t('Visited')}</Chip>
       </div>
       <ul className="grid gap-3 md:grid-cols-2">
         {list.map((s) => {
@@ -39,15 +40,15 @@ export default function AdminSmes() {
                   <Avatar name={s.name} tone={s.tone} />
                   <div className="min-w-0 flex-1 basis-40">
                     <p className="text-heading font-semibold leading-snug">{s.name}</p>
-                    <p className="text-detail text-muted">{s.kind} · {s.area}</p>
-                    <p className="text-detail text-muted">Owner: {s.ownerName}</p>
+                    <p className="text-detail text-muted">{t(s.kind)} · {t(s.area)}</p>
+                    <p className="text-detail text-muted">{t('Owner: {name}', { name: s.ownerName })}</p>
                   </div>
-                  <Tag tone={s.verified ? 'leaf' : 'honey'}>{s.verified ? `Visited ${shortDate(s.visitedOn)}` : `Submitted ${shortDate(s.submittedOn)}`}</Tag>
+                  <Tag tone={s.verified ? 'leaf' : 'honey'}>{s.verified ? t('Visited {date}', { date: shortDate(s.visitedOn) }) : t('Submitted {date}', { date: shortDate(s.submittedOn) })}</Tag>
                 </div>
-                <p className="text-detail text-muted">{plural(openings.length, 'opening')} · {s.verified ? 'Shown to students' : 'Hidden from students until verified'}</p>
+                <p className="text-detail text-muted">{plural(openings.length, 'opening')} · {s.verified ? t('Shown to students') : t('Hidden from students until verified')}</p>
                 <div className="mt-auto flex gap-2">
-                  <Button variant="secondary" size="sm" onClick={() => setViewing(s)} aria-label={`View ${s.name}`}>View</Button>
-                  {!s.verified && <Button size="sm" onClick={() => setVerifying(s)} aria-label={`Verify ${s.name}`}>Verify</Button>}
+                  <Button variant="secondary" size="sm" onClick={() => setViewing(s)} aria-label={t('View {name}', { name: s.name })}>{t('View')}</Button>
+                  {!s.verified && <Button size="sm" onClick={() => setVerifying(s)} aria-label={t('Verify {name}', { name: s.name })}>{t('Verify')}</Button>}
                 </div>
               </Card>
             </li>

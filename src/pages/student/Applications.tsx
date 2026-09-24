@@ -10,6 +10,7 @@ import { StatusBadge } from '../../components/ui/StatusBadge'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { LinkButton } from '../../components/ui/Button'
 import { relativeDay, plural, startsIn } from '../../lib/format'
+import { t } from '../../lib/i18n'
 import type { ApplicationStatus } from '../../types'
 
 type Filter = 'all' | ApplicationStatus
@@ -23,24 +24,24 @@ export default function Applications() {
 
   return (
     <div className="flex flex-col gap-5">
-      <PageTitle title="My applications" sub={all.length ? `You have applied to ${plural(all.length, 'opening')}.` : undefined} />
+      <PageTitle title={t('My applications')} sub={all.length ? t('You have applied to {count}.', { count: plural(all.length, 'opening') }) : undefined} />
 
       {all.length === 0 ? (
         <EmptyState
-          title="You haven't applied yet"
-          body="When you apply, you can see here where each application is. It takes one tap."
-          action={<LinkButton to="/student" full>See openings near me</LinkButton>}
+          title={t("You haven't applied yet")}
+          body={t('When you apply, you can see here where each application is. It takes one tap.')}
+          action={<LinkButton to="/student" full>{t('See openings near me')}</LinkButton>}
         />
       ) : (
         <>
-          <div role="group" aria-label="Filter applications" className="flex flex-wrap gap-2">
-            <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>All</Chip>
-            <Chip selected={filter === 'waiting'} onClick={() => setFilter('waiting')}>Waiting to hear</Chip>
-            <Chip selected={filter === 'accepted'} onClick={() => setFilter('accepted')}>Accepted</Chip>
-            <Chip selected={filter === 'not_selected'} onClick={() => setFilter('not_selected')}>Not this time</Chip>
+          <div role="group" aria-label={t('Filter applications')} className="flex flex-wrap gap-2">
+            <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>{t('All')}</Chip>
+            <Chip selected={filter === 'waiting'} onClick={() => setFilter('waiting')}>{t('Waiting to hear')}</Chip>
+            <Chip selected={filter === 'accepted'} onClick={() => setFilter('accepted')}>{t('Accepted')}</Chip>
+            <Chip selected={filter === 'not_selected'} onClick={() => setFilter('not_selected')}>{t('Not this time')}</Chip>
           </div>
 
-          {list.length === 0 && <p className="text-muted">Nothing here yet.</p>}
+          {list.length === 0 && <p className="text-muted">{t('Nothing here yet.')}</p>}
 
           <ul className="grid gap-3 sm:grid-cols-2">
             {list.map((a) => {
@@ -56,21 +57,26 @@ export default function Applications() {
                     <div className="flex items-start gap-3">
                       <Avatar name={sme.name} tone={sme.tone} />
                       <div className="min-w-0 flex-1">
-                        <h2 className="text-heading font-semibold leading-snug">{internship.title}</h2>
+                        <h2 className="text-heading font-semibold leading-snug">{t(internship.title)}</h2>
                         <p className="text-muted">{sme.name}</p>
                       </div>
                       <ChevronRight className="mt-1 size-5 shrink-0 text-muted" aria-hidden="true" />
                     </div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <StatusBadge status={a.status} label={a.status === 'accepted' ? `Accepted · ${startsIn(a.startsOn).replace('Starts', 'starts')}` : undefined} />
-                      <span className="text-detail text-muted">Applied {relativeDay(a.appliedAt).toLowerCase()}</span>
+                      <StatusBadge status={a.status} label={a.status === 'accepted' ? t('Accepted · {when}', { when: startsIn(a.startsOn).replace('Starts', 'starts') }) : undefined} />
+                      <span className="text-detail text-muted">{t('Applied {when}', { when: relativeDay(a.appliedAt).toLowerCase() })}</span>
                     </div>
                     {a.status === 'not_selected' && (
                       <p className="text-body text-muted">
-                        Not this time. {otherCount > 0 ? `Here ${otherCount === 1 ? 'is' : 'are'} ${plural(otherCount, 'other opening')} near you.` : 'More openings are on the way.'}
+                        {t('Not this time.')}{' '}
+                        {otherCount > 0
+                          ? otherCount === 1
+                            ? t('Here is {count} near you.', { count: plural(otherCount, 'other opening') })
+                            : t('Here are {count} near you.', { count: plural(otherCount, 'other opening') })
+                          : t('More openings are on the way.')}
                       </p>
                     )}
-                    {a.status === 'waiting' && <p className="text-detail text-muted">{sme.ownerFirstName} usually replies within 3 days.</p>}
+                    {a.status === 'waiting' && <p className="text-detail text-muted">{t('{owner} usually replies within 3 days.', { owner: sme.ownerFirstName })}</p>}
                   </Link>
                 </li>
               )

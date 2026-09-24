@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { CheckCircle2, X } from 'lucide-react'
 import { titleCase } from '../../lib/format'
+import { t } from '../../lib/i18n'
 
 interface ToastInput {
   message: string
@@ -11,17 +12,17 @@ interface ToastItem extends ToastInput {
   id: number
 }
 
-const ToastContext = createContext<{ show: (t: ToastInput) => void } | null>(null)
+const ToastContext = createContext<{ show: (input: ToastInput) => void } | null>(null)
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [item, setItem] = useState<ToastItem | null>(null)
   const timer = useRef<number | undefined>(undefined)
 
   const dismiss = useCallback(() => setItem(null), [])
-  const show = useCallback((t: ToastInput) => {
+  const show = useCallback((input: ToastInput) => {
     window.clearTimeout(timer.current)
-    setItem({ ...t, id: Date.now() })
-    timer.current = window.setTimeout(() => setItem(null), t.ms ?? (t.action ? 7000 : 4000))
+    setItem({ ...input, id: Date.now() })
+    timer.current = window.setTimeout(() => setItem(null), input.ms ?? (input.action ? 7000 : 4000))
   }, [])
 
   useEffect(() => () => window.clearTimeout(timer.current), [])
@@ -54,7 +55,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 {titleCase(item.action.label)}
               </button>
             )}
-            <button type="button" aria-label="Dismiss message" onClick={dismiss} className="grid size-11 place-items-center rounded-button hover:bg-white/10">
+            <button type="button" aria-label={t('Dismiss message')} onClick={dismiss} className="grid size-11 place-items-center rounded-button hover:bg-white/10">
               <X className="size-4" aria-hidden="true" />
             </button>
           </div>

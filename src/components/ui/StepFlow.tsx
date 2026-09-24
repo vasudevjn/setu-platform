@@ -2,7 +2,9 @@ import type { ReactNode } from 'react'
 import { BackButton } from './PageHeader'
 import { SegmentBar } from './Progress'
 import { Button } from './Button'
+import { LanguageButton } from '../navigation/LanguageButton'
 import { titleCase } from '../../lib/format'
+import { t } from '../../lib/i18n'
 
 interface StepFlowProps {
   step: number
@@ -20,14 +22,15 @@ interface StepFlowProps {
 }
 
 /** One question per screen. Shared by onboarding and "Post an opening". */
-export function StepFlow({ step, total, title, sub, children, onBack, onNext, nextLabel = 'Continue', nextDisabled, nextLoading, footnote }: StepFlowProps) {
+export function StepFlow({ step, total, title, sub, children, onBack, onNext, nextLabel, nextDisabled, nextLoading, footnote }: StepFlowProps) {
   return (
     <div className="mx-auto flex min-h-[calc(100dvh-2rem)] max-w-xl flex-col">
       <div className="flex items-center justify-between">
-        <BackButton label="Go back one step" onClick={onBack} />
-        <p className="text-button text-muted">
-          Step {step} of {total}
-        </p>
+        <BackButton label={t('Go back one step')} onClick={onBack} />
+        <div className="flex items-center gap-3">
+          <p className="text-button text-muted">{t('Step {step} of {total}', { step, total })}</p>
+          <LanguageButton />
+        </div>
       </div>
       <div className="mt-1">
         <SegmentBar step={step} total={total} />
@@ -46,7 +49,7 @@ export function StepFlow({ step, total, title, sub, children, onBack, onNext, ne
         </div>
         <div className="safe-bottom sticky bottom-0 -mx-4 mt-8 bg-cream/95 px-4 pb-4 pt-3 backdrop-blur lg:static lg:mx-0 lg:px-0">
           <Button type="submit" size="lg" full disabled={nextDisabled} loading={nextLoading}>
-            {nextLabel}
+            {nextLabel ?? t('Continue')}
           </Button>
           {footnote && <div className="mt-2 text-center text-detail text-muted">{footnote}</div>}
         </div>

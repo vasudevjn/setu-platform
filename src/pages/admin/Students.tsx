@@ -5,12 +5,13 @@ import { Card } from '../../components/ui/Card'
 import { Tag } from '../../components/ui/Tag'
 import { Avatar, toneFor } from '../../components/ui/Avatar'
 import { plural } from '../../lib/format'
+import { t } from '../../lib/i18n'
 
 export default function AdminStudents() {
   const { state } = useApp()
   return (
     <div className="flex flex-col gap-5">
-      <PageTitle title="Students" sub={`${plural(state.students.length, 'student')} at BCOM Arts & Commerce College`} />
+      <PageTitle title={t('Students')} sub={t('{count} at BCOM Arts & Commerce College', { count: plural(state.students.length, 'student') })} />
       <ul className="grid gap-3 md:grid-cols-2">
         {state.students.map((s) => {
           const apps = state.applications.filter((a) => a.studentId === s.id && a.status !== 'withdrawn')
@@ -21,17 +22,17 @@ export default function AdminStudents() {
                   <Avatar name={s.shortName} tone={toneFor(s.id)} />
                   <div className="min-w-0 flex-1 basis-40">
                     <p className="text-heading font-semibold leading-snug">{s.firstName} {s.lastName}</p>
-                    <p className="text-detail text-muted">{s.course} · {s.year}</p>
+                    <p className="text-detail text-muted">{t(s.course)} · {t(s.year)}</p>
                     <p className="text-detail text-muted">{s.phone}</p>
                   </div>
-                  {s.collegeVerified && <Tag tone="trust" icon={<BadgeCheck className="size-3.5" aria-hidden="true" />}>College confirmed</Tag>}
+                  {s.collegeVerified && <Tag tone="trust" icon={<BadgeCheck className="size-3.5" aria-hidden="true" />}>{t('College confirmed')}</Tag>}
                 </div>
-                <ul className="flex flex-wrap gap-2" aria-label="Skills">
+                <ul className="flex flex-wrap gap-2" aria-label={t('Skills')}>
                   {s.skills.map((k) => (
-                    <li key={k}><Tag tone="neutral">{k}</Tag></li>
+                    <li key={k}><Tag tone="neutral">{t(k)}</Tag></li>
                   ))}
                 </ul>
-                <p className="text-detail text-muted">{plural(apps.length, 'application')}, {apps.filter((a) => a.status === 'accepted' || a.status === 'completed').length} accepted</p>
+                <p className="text-detail text-muted">{t('{applications}, {accepted} accepted', { applications: plural(apps.length, 'application'), accepted: apps.filter((a) => a.status === 'accepted' || a.status === 'completed').length })}</p>
               </Card>
             </li>
           )

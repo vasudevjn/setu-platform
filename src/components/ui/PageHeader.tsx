@@ -2,13 +2,14 @@ import { ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { titleCase } from '../../lib/format'
+import { t } from '../../lib/i18n'
 
-export function BackButton({ to, label = 'Go back', onClick }: { to?: string; label?: string; onClick?: () => void }) {
+export function BackButton({ to, label, onClick }: { to?: string; label?: string; onClick?: () => void }) {
   const navigate = useNavigate()
   return (
     <button
       type="button"
-      aria-label={label}
+      aria-label={label ?? t('Go back')}
       onClick={() => (onClick ? onClick() : to ? navigate(to) : window.history.length > 1 ? navigate(-1) : navigate('/'))}
       className="-ml-2 grid size-12 place-items-center rounded-full text-ink hover:bg-stone-mist"
     >

@@ -3,10 +3,15 @@ import { Avatar } from '../ui/Avatar'
 import { Card } from '../ui/Card'
 import { ExternalButton } from '../ui/Button'
 import { SETU_SUPPORT } from '../../lib/config'
+import { t } from '../../lib/i18n'
 
 /** A real person, one tap away. Central to how SME owners come to trust Setu. */
 export function SupportCard({ businessName, compact }: { businessName?: string; compact?: boolean }) {
-  const text = encodeURIComponent(`Hello ${SETU_SUPPORT.name}, I need help${businessName ? ` with ${businessName}` : ''} on Setu.`)
+  const text = encodeURIComponent(
+    businessName
+      ? t('Hello {name}, I need help with {business} on Setu.', { name: SETU_SUPPORT.name, business: businessName })
+      : t('Hello {name}, I need help on Setu.', { name: SETU_SUPPORT.name }),
+  )
   const tel = `tel:${SETU_SUPPORT.phone}`
   const chat = `https://wa.me/${SETU_SUPPORT.phone.replace('+', '')}?text=${text}`
 
@@ -18,12 +23,12 @@ export function SupportCard({ businessName, compact }: { businessName?: string; 
         <Avatar name={SETU_SUPPORT.name} tone="apricot" />
         <div className="min-w-0 flex-1">
           <p className="font-bold leading-snug">{SETU_SUPPORT.name}</p>
-          <p className="text-detail text-muted">{SETU_SUPPORT.role}</p>
+          <p className="text-detail text-muted">{t(SETU_SUPPORT.role)}</p>
         </div>
-        <a href={tel} className={round} aria-label={`Call ${SETU_SUPPORT.name} from Setu`}>
+        <a href={tel} className={round} aria-label={t('Call {name} from Setu', { name: SETU_SUPPORT.name })}>
           <Phone className="size-5" aria-hidden="true" />
         </a>
-        <a href={chat} target="_blank" rel="noopener noreferrer" className={round} aria-label={`Chat with ${SETU_SUPPORT.name} from Setu on WhatsApp`}>
+        <a href={chat} target="_blank" rel="noopener noreferrer" className={round} aria-label={t('Chat with {name} from Setu on WhatsApp', { name: SETU_SUPPORT.name })}>
           <MessageCircle className="size-5" aria-hidden="true" />
         </a>
       </Card>
@@ -32,17 +37,17 @@ export function SupportCard({ businessName, compact }: { businessName?: string; 
 
   return (
     <Card className="p-4">
-      <p className="text-detail font-semibold text-muted">Need help?</p>
+      <p className="text-detail font-semibold text-muted">{t('Need help?')}</p>
       <div className="mt-2 flex items-center gap-3">
         <Avatar name={SETU_SUPPORT.name} tone="apricot" />
         <div className="min-w-0 flex-1">
-          <p className="font-semibold leading-snug">Talk to {SETU_SUPPORT.name} from Setu</p>
-          <p className="text-detail text-muted">{SETU_SUPPORT.role}</p>
+          <p className="font-semibold leading-snug">{t('Talk to {name} from Setu', { name: SETU_SUPPORT.name })}</p>
+          <p className="text-detail text-muted">{t(SETU_SUPPORT.role)}</p>
         </div>
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
-        <ExternalButton href={tel} variant="soft" icon={<Phone className="size-5" aria-hidden="true" />} aria-label={`Call ${SETU_SUPPORT.name} from Setu`}>
-          Call
+        <ExternalButton href={tel} variant="soft" icon={<Phone className="size-5" aria-hidden="true" />} aria-label={t('Call {name} from Setu', { name: SETU_SUPPORT.name })}>
+          {t('Call')}
         </ExternalButton>
         <ExternalButton
           href={chat}
@@ -50,9 +55,9 @@ export function SupportCard({ businessName, compact }: { businessName?: string; 
           rel="noopener noreferrer"
           variant="soft"
           icon={<MessageCircle className="size-5" aria-hidden="true" />}
-          aria-label={`Chat with ${SETU_SUPPORT.name} from Setu on WhatsApp`}
+          aria-label={t('Chat with {name} from Setu on WhatsApp', { name: SETU_SUPPORT.name })}
         >
-          Chat
+          {t('Chat')}
         </ExternalButton>
       </div>
     </Card>

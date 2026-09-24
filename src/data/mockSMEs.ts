@@ -13,12 +13,12 @@ export const mockSMEs: SME[] = [
     ownerName: 'Ramesh Sharma',
     ownerFirstName: 'Ramesh',
     phone: '+91 98230 11876',
-    area: 'Market Yard, Pune',
-    town: 'Pune',
+    area: 'Panchavati, Nashik',
+    town: 'Nashik',
     staff: '12 people',
     sinceYear: 2009,
     about:
-      'A family-run wholesale grocery supplier at Market Yard. We supply about 80 shops across Pune and keep our books, stock and billing in-house.',
+      'A family-run wholesale grocery supplier at Panchavati. We supply about 80 shops across Nashik and keep our books, stock and billing in-house.',
     distanceKm: 3,
     verified: true,
     visitedOn: '2025-10-11',
@@ -33,8 +33,8 @@ export const mockSMEs: SME[] = [
     ownerName: 'Hitesh Patel',
     ownerFirstName: 'Hitesh',
     phone: '+91 98500 33418',
-    area: 'Swargate, Pune',
-    town: 'Pune',
+    area: 'Nashik Road, Nashik',
+    town: 'Nashik',
     staff: '8 people',
     sinceYear: 2004,
     about:
@@ -53,8 +53,8 @@ export const mockSMEs: SME[] = [
     ownerName: 'Vijay Joshi',
     ownerFirstName: 'Vijay',
     phone: '+91 98811 60245',
-    area: 'Bhosari MIDC, Pune',
-    town: 'Pune',
+    area: 'Satpur MIDC, Nashik',
+    town: 'Nashik',
     staff: '40 people',
     sinceYear: 1998,
     about:
@@ -73,8 +73,8 @@ export const mockSMEs: SME[] = [
     ownerName: 'Meena Kulkarni',
     ownerFirstName: 'Meena',
     phone: '+91 99220 78125',
-    area: 'Kothrud, Pune',
-    town: 'Pune',
+    area: 'College Road, Nashik',
+    town: 'Nashik',
     staff: '6 people',
     sinceYear: 2014,
     about:
@@ -92,8 +92,8 @@ export const mockSMEs: SME[] = [
     ownerName: 'Anita More',
     ownerFirstName: 'Anita',
     phone: '+91 94220 51789',
-    area: 'Hadapsar, Pune',
-    town: 'Pune',
+    area: 'Ambad MIDC, Nashik',
+    town: 'Nashik',
     staff: '25 people',
     sinceYear: 2016,
     about:
@@ -107,4 +107,4 @@ export const mockSMEs: SME[] = [
 ]
 
 export const DEMO_SME_ID = 'sme_sharma'
-export const SETU_TOWN = 'Pune'
+export const SETU_TOWN = 'Nashik'

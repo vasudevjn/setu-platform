@@ -7,7 +7,7 @@ export const SETU_SUPPORT = {
   phoneDisplay: '+91 90000 00000',
 }
 
-export const SETU_TOWN = 'Pune'
+export const SETU_TOWN = 'Nashik'
 export const PARTNER_COLLEGE = 'BCOM Arts & Commerce College'
 /** Short form for tight spots, like the applicant card. */
 export const PARTNER_COLLEGE_SHORT = 'BCOM College'

@@ -6,9 +6,21 @@ import { useApp } from '../../hooks/useApp'
 import { useToast } from '../ui/Toast'
 import type { Role } from '../../types'
 import { cn } from '../../lib/cn'
+import { t } from '../../lib/i18n'
 
 export const roleHome: Record<Role, string> = { student: '/student', sme: '/sme', admin: '/admin' }
-export const roleName: Record<Role, string> = { student: 'Student', sme: 'Business', admin: 'Setu Admin' }
+/** Read at the moment of use, so it follows the chosen language. */
+export const roleName: Record<Role, string> = {
+  get student() {
+    return t('Student')
+  },
+  get sme() {
+    return t('Business')
+  },
+  get admin() {
+    return t('Setu Admin')
+  },
+}
 
 /** Demo-only: there is no login in this prototype, so anyone can switch role. */
 export function RoleSwitcher({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -23,14 +35,14 @@ export function RoleSwitcher({ open, onClose }: { open: boolean; onClose: () => 
   }
 
   const options: Array<{ role: Role; icon: typeof Building2; sub: string }> = [
-    { role: 'student', icon: GraduationCap, sub: 'Priya, final-year BCom' },
-    { role: 'sme', icon: Building2, sub: 'A local business owner' },
-    { role: 'admin', icon: ShieldCheck, sub: 'Setu field team' },
+    { role: 'student', icon: GraduationCap, sub: t('Priya, final-year BCom') },
+    { role: 'sme', icon: Building2, sub: t('A local business owner') },
+    { role: 'admin', icon: ShieldCheck, sub: t('Setu field team') },
   ]
 
   return (
-    <Sheet open={open} onClose={onClose} title="Continue As">
-      <p className="mb-4 text-muted">This is a demo. There is no login. Pick who you want to be.</p>
+    <Sheet open={open} onClose={onClose} title={t('Continue As')}>
+      <p className="mb-4 text-muted">{t('This is a demo. There is no login. Pick who you want to be.')}</p>
       <div className="flex flex-col gap-2.5">
         {options.map(({ role, icon: Icon, sub }) => (
           <button
@@ -56,9 +68,9 @@ export function RoleSwitcher({ open, onClose }: { open: boolean; onClose: () => 
 
       <div className="mt-5">
         <label htmlFor="which-business" className="text-button font-semibold">
-          Which business?
+          {t('Which business?')}
         </label>
-        <p className="mb-2 text-detail text-muted">Used when you continue as Business. Pick a business Setu has not visited yet to see the waiting state.</p>
+        <p className="mb-2 text-detail text-muted">{t('Used when you continue as Business. Pick a business Setu has not visited yet to see the waiting state.')}</p>
         <select
           id="which-business"
           value={state.currentSmeId}
@@ -67,7 +79,7 @@ export function RoleSwitcher({ open, onClose }: { open: boolean; onClose: () => 
         >
           {state.smes.map((s) => (
             <option key={s.id} value={s.id}>
-              {s.name} {s.verified ? '(visited)' : '(waiting for visit)'}
+              {s.name} {s.verified ? t('(visited)') : t('(waiting for visit)')}
             </option>
           ))}
         </select>
@@ -80,11 +92,11 @@ export function RoleSwitcher({ open, onClose }: { open: boolean; onClose: () => 
           icon={<RotateCcw className="size-4" aria-hidden="true" />}
           onClick={async () => {
             await resetDemo()
-            show({ message: 'Demo data is back to the start.' })
+            show({ message: t('Demo data is back to the start.') })
             onClose()
           }}
         >
-          Reset demo data
+          {t('Reset demo data')}
         </Button>
       </div>
     </Sheet>

@@ -21,6 +21,8 @@ import { RoleSwitcher, roleName } from './RoleSwitcher'
 import { useApp } from '../../hooks/useApp'
 import { cn } from '../../lib/cn'
 import { Avatar } from '../ui/Avatar'
+import { LanguageButton } from './LanguageButton'
+import { t } from '../../lib/i18n'
 
 interface NavItem {
   to: string
@@ -72,7 +74,7 @@ export function BellLink({ role, className }: { role: Role; className?: string }
   return (
     <Link
       to={role === 'student' ? '/student/notifications' : '/sme/notifications'}
-      aria-label={unread ? `Notifications, ${unread} new` : 'Notifications'}
+      aria-label={unread ? t('Notifications, {n} new', { n: unread }) : t('Notifications')}
       className={cn('relative grid size-12 place-items-center rounded-full hover:bg-stone-mist', className)}
     >
       <Bell className="size-6" aria-hidden="true" />
@@ -87,14 +89,14 @@ export function DemoChip({ onClick, className, onDark }: { onClick: () => void; 
     <button
       type="button"
       onClick={onClick}
-      aria-label={`Demo mode. You are ${state.role ? roleName[state.role] : 'a visitor'}. Change role.`}
+      aria-label={t('Demo mode. You are {role}. Change role.', { role: state.role ? roleName[state.role] : t('a visitor') })}
       className={cn(
         'inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 text-detail font-semibold',
         onDark ? 'border-white/40 text-white hover:bg-white/10' : 'border-line bg-white text-muted hover:border-teal hover:text-teal',
         className,
       )}
     >
-      Demo<span className="max-[379px]:hidden"> · {state.role ? roleName[state.role] : 'Choose'}</span>
+      {t('Demo')}<span className="max-[379px]:hidden"> · {state.role ? roleName[state.role] : t('Choose')}</span>
       <ChevronsUpDown className="size-3.5" aria-hidden="true" />
     </button>
   )
@@ -125,7 +127,7 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
   const showTop = !handle.focus && !handle.ownTop && !handle.bare
   const showBottom = !handle.focus && !handle.bare
   const userName = role === 'student' ? currentStudent.shortName : role === 'sme' ? currentSme.name : 'Anjali'
-  const userSub = role === 'student' ? 'Student' : role === 'sme' ? 'Business' : 'Setu team'
+  const userSub = role === 'student' ? t('Student') : role === 'sme' ? t('Business') : t('Setu team')
 
   return (
     <div className="min-h-dvh lg:flex">
@@ -133,16 +135,16 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-button focus:bg-teal focus:px-4 focus:py-3 focus:text-white"
       >
-        Skip to main content
+        {t('Skip to main content')}
       </a>
 
       {/* Desktop sidebar */}
       {!handle.bare && (
         <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-line/70 bg-white px-4 py-6 lg:flex">
-          <Link to="/" aria-label="Setu home" className="mb-8 px-2">
+          <Link to="/" aria-label={t('Setu home')} className="mb-8 px-2">
             <Logo height={34} />
           </Link>
-          <nav aria-label={`${roleName[role]} navigation`} className="flex flex-col gap-1">
+          <nav aria-label={t('{role} navigation', { role: roleName[role] })} className="flex flex-col gap-1">
             {items.map(({ to, label, icon: Icon, end }) => (
               <NavLink
                 key={to}
@@ -156,7 +158,7 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
                 }
               >
                 <Icon className="size-5" aria-hidden="true" />
-                {label}
+                {t(label)}
               </NavLink>
             ))}
           </nav>
@@ -167,7 +169,7 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
                 className="flex min-h-12 items-center gap-3 rounded-button px-3 text-button font-semibold text-muted hover:bg-stone-mist hover:text-ink"
               >
                 <NotifCount role={role} />
-                Notifications
+                {t('Notifications')}
               </Link>
             )}
             <div className="flex items-center gap-3 rounded-card bg-cream p-3">
@@ -177,7 +179,10 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
                 <p className="text-detail text-muted">{userSub}</p>
               </div>
             </div>
-            <DemoChip onClick={() => setSwitcher(true)} className="justify-center" />
+            <div className="grid grid-cols-2 gap-2">
+              <LanguageButton showName className="justify-center" />
+              <DemoChip onClick={() => setSwitcher(true)} className="justify-center" />
+            </div>
           </div>
         </aside>
       )}
@@ -185,10 +190,11 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
       <div className="min-w-0 flex-1">
         {showTop && (
           <header className="sticky top-0 z-30 flex items-center justify-between bg-cream/95 px-4 py-2 backdrop-blur lg:hidden">
-            <Link to="/" aria-label="Setu home" className="grid min-h-12 shrink-0 place-items-center">
+            <Link to="/" aria-label={t('Setu home')} className="grid min-h-12 shrink-0 place-items-center">
               <Logo height={24} />
             </Link>
             <div className="flex items-center gap-1">
+              <LanguageButton />
               <DemoChip onClick={() => setSwitcher(true)} />
               <BellLink role={role} />
             </div>
@@ -212,7 +218,7 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
 
         {showBottom && (
           <nav
-            aria-label={`${roleName[role]} navigation`}
+            aria-label={t('{role} navigation', { role: roleName[role] })}
             className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line/60 bg-white shadow-nav lg:hidden"
           >
             <ul className="mx-auto flex max-w-lg">
@@ -231,11 +237,11 @@ export function Shell({ role, wide }: { role: Role; wide?: boolean }) {
                     <Icon className="size-6" aria-hidden="true" />
                     {short ? (
                       <>
-                        <span className="min-[400px]:hidden">{short}</span>
-                        <span className="max-[399px]:hidden">{label}</span>
+                        <span className="min-[400px]:hidden">{t(short)}</span>
+                        <span className="max-[399px]:hidden">{t(label)}</span>
                       </>
                     ) : (
-                      <span>{label}</span>
+                      <span>{t(label)}</span>
                     )}
                   </NavLink>
                 </li>
@@ -256,7 +262,7 @@ function NotifCount({ role }: { role: Role }) {
     <span className="relative">
       <Bell className="size-5" aria-hidden="true" />
       {n > 0 && <span aria-hidden="true" className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-apricot ring-2 ring-white" />}
-      {n > 0 && <span className="sr-only">{n} new</span>}
+      {n > 0 && <span className="sr-only">{t('{n} new', { n })}</span>}
     </span>
   )
 }

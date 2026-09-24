@@ -5,6 +5,8 @@ import { useApp } from '../hooks/useApp'
 import { PageTitle } from '../components/ui/PageHeader'
 import { EmptyState } from '../components/ui/EmptyState'
 import { relativeDay } from '../lib/format'
+import { t } from '../lib/i18n'
+import { showNote } from '../lib/notes'
 import { cn } from '../lib/cn'
 import type { Role } from '../types'
 
@@ -17,15 +19,15 @@ export default function Notifications({ role }: { role: Role }) {
   // Reading the page marks everything as read, after the first paint so the "new" dots are visible once.
   useEffect(() => {
     if (unreadCount === 0) return
-    const t = window.setTimeout(() => markRead(role, target), 1200)
-    return () => window.clearTimeout(t)
+    const timer = window.setTimeout(() => markRead(role, target), 1200)
+    return () => window.clearTimeout(timer)
   }, [unreadCount, role, target, markRead])
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
-      <PageTitle title="Notifications" sub="In a real launch, each of these also goes to you by SMS." />
+      <PageTitle title={t('Notifications')} sub={t('In a real launch, each of these also goes to you by SMS.')} />
       {mine.length === 0 ? (
-        <EmptyState title="Nothing new yet" body={role === 'student' ? 'When a business replies to an application, you will see it here.' : 'When a student applies to your opening, you will see it here.'} />
+        <EmptyState title={t('Nothing new yet')} body={role === 'student' ? t('When a business replies to an application, you will see it here.') : t('When a student applies to your opening, you will see it here.')} />
       ) : (
         <ul className="flex flex-col gap-3">
           {mine.map((n) => (
@@ -36,10 +38,10 @@ export default function Notifications({ role }: { role: Role }) {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold leading-snug">
-                    {n.title}
-                    {!n.read && <span className="ml-2 rounded-full bg-apricot-mist px-2 py-0.5 text-tag text-apricot-text">New</span>}
+                    {showNote(n.title)}
+                    {!n.read && <span className="ml-2 rounded-full bg-apricot-mist px-2 py-0.5 text-tag text-apricot-text">{t('New')}</span>}
                   </p>
-                  <p className="text-body text-muted">{n.body}</p>
+                  <p className="text-body text-muted">{showNote(n.body)}</p>
                   <p className="mt-1 text-detail text-muted">{relativeDay(n.at)}</p>
                 </div>
               </Link>

@@ -9,6 +9,7 @@ import { applicantsFor, findSme, isVisibleToStudents } from '../../lib/selectors
 import { money, plural } from '../../lib/format'
 import { useToast } from '../../components/ui/Toast'
 import type { Internship } from '../../types'
+import { t } from '../../lib/i18n'
 
 export default function AdminOpenings() {
   const { state, setInternshipStatus } = useApp()
@@ -17,7 +18,7 @@ export default function AdminOpenings() {
 
   return (
     <div className="flex flex-col gap-5">
-      <PageTitle title="Openings" sub="Every opening, including ones students cannot see yet." />
+      <PageTitle title={t('Openings')} sub={t('Every opening, including ones students cannot see yet.')} />
       <ul className="grid gap-3 md:grid-cols-2">
         {state.internships.map((i) => {
           const sme = findSme(state, i.smeId)!
@@ -28,27 +29,27 @@ export default function AdminOpenings() {
               <Card className="flex h-full flex-col gap-3 p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="text-heading font-semibold leading-snug">{i.title}</p>
+                    <p className="text-heading font-semibold leading-snug">{t(i.title)}</p>
                     <p className="text-muted">{sme.name}</p>
                   </div>
                   <Tag tone={visible ? 'leaf' : i.status === 'closed' ? 'stone' : 'honey'}>
-                    {visible ? 'Visible to students' : i.status === 'closed' ? 'Closed' : 'Hidden: not visited yet'}
+                    {visible ? t('Visible to students') : i.status === 'closed' ? t('Closed') : t('Hidden: not visited yet')}
                   </Tag>
                 </div>
                 <p className="text-detail text-muted">
-                  {money(i.stipend)} · {i.weeks} weeks · {sme.distanceKm} km · {plural(apps.length, 'applicant')}
+                  {money(i.stipend)} · {plural(i.weeks, 'week')} · {t('{n} km', { n: sme.distanceKm })} · {plural(apps.length, 'applicant')}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-2">
-                  <Button size="sm" variant="soft" onClick={() => setMatching(i)}>Assist with matching</Button>
+                  <Button size="sm" variant="soft" onClick={() => setMatching(i)}>{t('Assist with matching')}</Button>
                   <Button
                     size="sm"
                     variant="ghost"
                     onClick={() => {
                       setInternshipStatus(i.id, i.status === 'live' ? 'closed' : 'live')
-                      show({ message: i.status === 'live' ? 'Opening closed.' : 'Opening is live again.' })
+                      show({ message: i.status === 'live' ? t('Opening closed.') : t('Opening is live again.') })
                     }}
                   >
-                    {i.status === 'live' ? 'Close' : 'Reopen'}
+                    {i.status === 'live' ? t('Close') : t('Reopen')}
                   </Button>
                 </div>
               </Card>

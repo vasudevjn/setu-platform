@@ -8,6 +8,7 @@ import { HelperNote } from '../../components/ui/HelperNote'
 import { COURSES, SKILLS } from '../../lib/options'
 import { PARTNER_COLLEGE } from '../../lib/config'
 import { useToast } from '../../components/ui/Toast'
+import { t } from '../../lib/i18n'
 
 export default function StudentOnboarding() {
   const { currentStudent, updateStudent, setOnboarded } = useApp()
@@ -40,24 +41,24 @@ export default function StudentOnboarding() {
       collegeVerified: true,
     })
     setOnboarded('student', true)
-    show({ message: `You're all set, ${first.trim()}.` })
+    show({ message: t("You're all set, {name}.", { name: first.trim() }) })
     navigate('/student', { replace: true })
   }
 
   if (step === 1)
     return (
-      <StepFlow step={1} total={total} title="What's your name?" sub="Businesses see your first name and the first letter of your surname." onBack={back} onNext={() => setStep(2)} nextDisabled={!first.trim() || !last.trim() || !phoneOk}>
-        <TextField label="First name" value={first} onChange={(e) => setFirst(e.target.value)} autoComplete="given-name" />
-        <TextField label="Surname" value={last} onChange={(e) => setLast(e.target.value)} autoComplete="family-name" />
+      <StepFlow step={1} total={total} title={t("What's your name?")} sub={t('Businesses see your first name and the first letter of your surname.')} onBack={back} onNext={() => setStep(2)} nextDisabled={!first.trim() || !last.trim() || !phoneOk}>
+        <TextField label={t('First name')} value={first} onChange={(e) => setFirst(e.target.value)} autoComplete="given-name" />
+        <TextField label={t('Surname')} value={last} onChange={(e) => setLast(e.target.value)} autoComplete="family-name" />
         <TextField
-          label="Mobile number"
+          label={t('Mobile number')}
           type="tel"
           inputMode="tel"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           autoComplete="tel"
-          hint="We only use it for SMS updates. Businesses see it only after they accept you."
-          error={!phoneOk && phone ? 'Please enter a 10 digit mobile number.' : undefined}
+          hint={t('We only use it for SMS updates. Businesses see it only after they accept you.')}
+          error={!phoneOk && phone ? t('Please enter a 10 digit mobile number.') : undefined}
         />
       </StepFlow>
     )
@@ -67,35 +68,35 @@ export default function StudentOnboarding() {
       <StepFlow
         step={2}
         total={total}
-        title="Where do you study?"
-        sub="Setu is only for final-year students at our partner college for now."
+        title={t('Where do you study?')}
+        sub={t('Setu is only for final-year students at our partner college for now.')}
         onBack={back}
         onNext={() => {
           setTried(true)
           if (final) setStep(3)
         }}
       >
-        <SelectField label="College" defaultValue={PARTNER_COLLEGE} disabled>
-          <option>{PARTNER_COLLEGE}</option>
+        <SelectField label={t('College')} defaultValue={PARTNER_COLLEGE} disabled>
+          <option>{t(PARTNER_COLLEGE)}</option>
         </SelectField>
         <div>
-          <p className="mb-2 text-button font-semibold">Your course</p>
-          <div role="group" aria-label="Your course" className="flex flex-wrap gap-2">
+          <p className="mb-2 text-button font-semibold">{t('Your course')}</p>
+          <div role="group" aria-label={t('Your course')} className="flex flex-wrap gap-2">
             {COURSES.map((c) => (
-              <Chip key={c} selected={course === c} onClick={() => setCourse(c)}>{c}</Chip>
+              <Chip key={c} selected={course === c} onClick={() => setCourse(c)}>{t(c)}</Chip>
             ))}
           </div>
         </div>
-        <CheckField label="I am in my final year" checked={final} onChange={setFinal} error={tried && !final ? 'Please tick this to continue. Setu is for final-year students.' : undefined} />
-        <HelperNote>Your college confirms you are a final-year student. Businesses see this tick on your profile.</HelperNote>
+        <CheckField label={t('I am in my final year')} checked={final} onChange={setFinal} error={tried && !final ? t('Please tick this to continue. Setu is for final-year students.') : undefined} />
+        <HelperNote>{t('Your college confirms you are a final-year student. Businesses see this tick on your profile.')}</HelperNote>
       </StepFlow>
     )
 
   return (
-    <StepFlow step={3} total={total} title="What can you do?" sub="Pick any that fit. This helps businesses see how you can help." onBack={back} onNext={finish} nextLabel="Finish and see openings" nextDisabled={skills.length === 0}>
-      <div role="group" aria-label="Your skills" className="flex flex-wrap gap-2">
+    <StepFlow step={3} total={total} title={t('What can you do?')} sub={t('Pick any that fit. This helps businesses see how you can help.')} onBack={back} onNext={finish} nextLabel={t('Finish and see openings')} nextDisabled={skills.length === 0}>
+      <div role="group" aria-label={t('Your skills')} className="flex flex-wrap gap-2">
         {SKILLS.map((s) => (
-          <Chip key={s} kind="pick" selected={skills.includes(s)} onClick={() => toggle(s)}>{s}</Chip>
+          <Chip key={s} kind="pick" selected={skills.includes(s)} onClick={() => toggle(s)}>{t(s)}</Chip>
         ))}
       </div>
     </StepFlow>

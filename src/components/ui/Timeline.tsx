@@ -1,5 +1,6 @@
 import { Check } from 'lucide-react'
 import { cn } from '../../lib/cn'
+import { t } from '../../lib/i18n'
 
 export type StepState = 'done' | 'current' | 'todo'
 export interface TimelineStep {
@@ -32,7 +33,7 @@ export function Timeline({ steps }: { steps: TimelineStep[] }) {
             <div className="-mt-0.5">
               <p className={cn('text-body font-semibold', s.state === 'todo' ? 'text-muted' : 'text-ink')}>
                 {s.title}
-                <span className="sr-only">{s.state === 'done' ? ' (done)' : s.state === 'current' ? ' (now)' : ' (later)'}</span>
+                <span className="sr-only">{s.state === 'done' ? ` ${t('(done)')}` : s.state === 'current' ? ` ${t('(now)')}` : ` ${t('(later)')}`}</span>
               </p>
               <p className="text-detail text-muted">{s.detail}</p>
             </div>

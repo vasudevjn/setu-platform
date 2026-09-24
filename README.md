@@ -45,7 +45,8 @@ The database is described entirely by the files in `supabase/migrations`. Run in
 | --- | --- |
 | `20260924000001_schema.sql` | Five tables: students, smes, internships, applications, notifications |
 | `20260924000002_security_and_realtime.sql` | Row Level Security, minimal grants for the public `anon` role, live updates |
-| `20260924000003_seed_and_reset.sql` | Demo data (Pune, BCOM Arts & Commerce College) and the `reset_demo_data()` function behind the "Reset demo data" button |
+| `20260924000003_seed_and_reset.sql` | Demo data and the `reset_demo_data()` function behind the "Reset demo data" button |
+| `20260924000004_move_demo_to_nashik.sql` | Moves the demo from Pune to Nashik (the real pilot town). Replaces the seeder and updates rows that still hold the Pune values |
 
 With the Supabase GitHub integration connected, pushing to the branch it watches applies new migrations to your project. In the Supabase dashboard, open **Project Settings > Integrations > GitHub** and check:
 
@@ -61,7 +62,7 @@ git commit -m "Add Supabase schema and Vercel config"
 git push origin main
 ```
 
-Check **Database > Migrations** in the dashboard. All three should show as applied. Do not edit a migration after it has been applied. Add a new file with a later timestamp instead.
+Check **Database > Migrations** in the dashboard. All four should show as applied. Do not edit a migration after it has been applied. Add a new file with a later timestamp instead.
 
 Prefer the command line? `npx supabase link --project-ref <ref>` then `npx supabase db push` applies the same files.
 
@@ -106,6 +107,28 @@ Before real data goes in:
 4. Remove the public `reset_demo_data()` function, or restrict it to admins.
 5. Move `apply`, `accept` and `verify` into database functions so the rules cannot be skipped from the browser.
 
+## Languages (English, Hindi, Marathi)
+
+A small language button sits in the top bar, on the landing page, in the first-time setup and on the profile pages. The choice is saved in the browser. A link like `/?lang=mr` opens the app in Marathi (and remembers it).
+
+How it works:
+
+- The English text is the key: `t('Apply with my profile')` from `src/lib/i18n.tsx`. Values go in `{braces}`: `t('Hello, {name}', { name })`.
+- The Hindi and Marathi words live in `src/i18n/hi.ts` and `src/i18n/mr.ts`. They load only when chosen. If a word is missing, English shows.
+- Text saved in the database (opening titles, tasks, notifications) stays English. Screens translate it when they show it. Text a business types itself is shown as typed.
+- Dates use the chosen language. Numbers, ₹ amounts and phone numbers keep Latin digits in every language.
+- Voice typing in "Post an opening" listens in the chosen language.
+- Poppins already includes the Devanagari letters, so Hindi and Marathi keep the brand look.
+
+When you add or change text:
+
+1. Wrap it in `t(...)`. Never call `t()` at the top of a file, only while rendering.
+2. If a string is stored in a list and shown with `t(variable)`, add it to `src/i18n/extra-keys.txt`.
+3. Run `node scripts/extract-i18n.mjs`. It lists every string still missing from Hindi or Marathi.
+4. Add the missing words to `src/i18n/hi.ts` and `src/i18n/mr.ts`.
+
+Have a Hindi and a Marathi speaker read the wording once before a real launch. The first version was written by Claude.
+
 ## Routes
 
 | Route | Screen |
@@ -137,12 +160,14 @@ src/
   pages/       Landing, student, sme, admin
   data/        mockStudents, mockSMEs, mockInternships, mockApplications
   hooks/       useApp (state, saving, refreshing), useSpeech (optional voice typing)
-  lib/         supabase (client), db (rows <-> app types, change detection), format, selectors, options, config
+  lib/         supabase (client), db (rows <-> app types, change detection), i18n (languages), notes (notification templates), format, selectors, options, config
+  i18n/        hi.ts, mr.ts (Hindi and Marathi words), extra-keys.txt
   styles/      index.css  <- all design tokens live here
   types/
 supabase/
   config.toml
-  migrations/  schema, security, seed + reset
+  migrations/  schema, security, seed + reset, move demo to Nashik
+scripts/       extract-i18n.mjs (finds missing translations)
 vercel.json    hosting settings
 .env.example   the two variables to set
 ```
@@ -158,6 +183,6 @@ The single source of truth is the `@theme` block in `src/styles/index.css`, take
 - No AI matching, chatbot, payments, contracts, credit API, multiple towns or messaging.
 - SMS is simulated. Status changes show in the app and on the notifications page.
 - The Setu support number in `src/lib/config.ts` is a placeholder. Call and Chat (WhatsApp) use it.
-- The regional language toggle from the PRD is not built yet (open question in the PRD: which language).
+- The Hindi and Marathi wording has not been reviewed by native speakers yet.
 - The testimonials on the landing page are marked as illustrative, because they come from the launch plan and not from real customers.
 - Voice typing in "Post an opening" uses the browser's speech recognition where available.

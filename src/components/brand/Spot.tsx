@@ -1,5 +1,6 @@
 import { Check } from 'lucide-react'
 import mark from '../../assets/logo-mark.png'
+import { t } from '../../lib/i18n'
 
 /** Simple spot illustrations in Teal and Apricot, as the style guide asks. */
 
@@ -31,7 +32,7 @@ export function CheckBurst({ size = 128 }: { size?: number }) {
 /** College <-> Setu <-> Local business, drawn as a bridge. */
 export function BridgeArt({ className = '' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 520 260" className={className} role="img" aria-label="Setu is a bridge between your college and a local business">
+    <svg viewBox="0 0 520 260" className={className} role="img" aria-label={t('Setu is a bridge between your college and a local business')}>
       {/* sun */}
       <circle cx="260" cy="150" r="46" fill="#F4A261" />
       {/* river */}

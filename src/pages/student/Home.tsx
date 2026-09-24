@@ -8,6 +8,7 @@ import { Chip } from '../../components/ui/Chip'
 import { InternshipCard } from '../../components/internship/InternshipCard'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { Button } from '../../components/ui/Button'
+import { t } from '../../lib/i18n'
 
 type Filter = 'all' | 'paid' | 'credit'
 
@@ -26,35 +27,35 @@ export default function StudentHome() {
         <p className="text-detail text-muted">{greeting()},</p>
         <h1 className="text-title font-bold lg:text-[2rem]">{currentStudent.firstName}</h1>
         <p className="mt-1 text-body text-muted">
-          {newCount === 0 ? 'No new openings this week. Check back soon.' : `${plural(newCount, 'new opening')} near you this week`}
+          {newCount === 0 ? t('No new openings this week. Check back soon.') : t('{count} near you this week', { count: plural(newCount, 'new opening') })}
         </p>
       </header>
 
-      <HelperNote>Our team visits every business in person before it can post here.</HelperNote>
+      <HelperNote>{t('Our team visits every business in person before it can post here.')}</HelperNote>
 
       {waiting > 0 && (
         <p className="text-body text-muted">
-          You have {plural(waiting, 'application')} waiting for a reply.{' '}
+          {t('You have {count} waiting for a reply.', { count: plural(waiting, 'application') })}{' '}
           <Link to="/student/applications" className="font-semibold text-teal underline underline-offset-4">
-            See where they are
+            {t('See where they are')}
           </Link>
         </p>
       )}
 
-      <div role="group" aria-label="Filter openings" className="flex flex-wrap gap-2">
-        <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>All</Chip>
-        <Chip selected={filter === 'paid'} onClick={() => setFilter('paid')}>Paid</Chip>
-        <Chip selected={filter === 'credit'} onClick={() => setFilter('credit')}>Counts for credit</Chip>
+      <div role="group" aria-label={t('Filter openings')} className="flex flex-wrap gap-2">
+        <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>{t('All')}</Chip>
+        <Chip selected={filter === 'paid'} onClick={() => setFilter('paid')}>{t('Paid')}</Chip>
+        <Chip selected={filter === 'credit'} onClick={() => setFilter('credit')}>{t('Counts for credit')}</Chip>
       </div>
 
       {shown.length === 0 ? (
         <EmptyState
-          title="Nothing matches that filter"
-          body="Try another filter. New openings from visited businesses show up here."
-          action={<Button full variant="secondary" onClick={() => setFilter('all')}>Show all openings</Button>}
+          title={t('Nothing matches that filter')}
+          body={t('Try another filter. New openings from visited businesses show up here.')}
+          action={<Button full variant="secondary" onClick={() => setFilter('all')}>{t('Show all openings')}</Button>}
         />
       ) : (
-        <section aria-label="Openings near you" className="grid gap-3 sm:grid-cols-2">
+        <section aria-label={t('Openings near you')} className="grid gap-3 sm:grid-cols-2">
           {shown.map((i) => {
             const sme = findSme(state, i.smeId)!
             return (
@@ -70,7 +71,7 @@ export default function StudentHome() {
           })}
         </section>
       )}
-      <p className="text-center text-detail text-muted">Showing openings in Pune only, for now.</p>
+      <p className="text-center text-detail text-muted">{t('Showing openings in Nashik only, for now.')}</p>
     </div>
   )
 }

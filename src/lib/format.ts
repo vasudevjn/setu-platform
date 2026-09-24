@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react'
 import type { ApplicationStatus, Internship, SME } from '../types'
+import { getLang, getLocale, t } from './i18n'
 
 export function money(stipend: number | null) {
-  return stipend == null ? 'Unpaid' : `₹${stipend.toLocaleString('en-IN')} / month`
+  return stipend == null ? t('Unpaid') : t('₹{amount} / month', { amount: stipend.toLocaleString('en-IN') })
 }
 
 export function shortDate(iso?: string) {
@@ -10,7 +11,7 @@ export function shortDate(iso?: string) {
   const d = new Date(iso)
   // A plain date ("2025-10-11") has no time, so read it as is. A timestamp shows in Indian time.
   const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(iso)
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: dateOnly ? 'UTC' : 'Asia/Kolkata' })
+  return d.toLocaleDateString(getLang() === 'en' ? 'en-GB' : getLocale(), { day: 'numeric', month: 'short', timeZone: dateOnly ? 'UTC' : 'Asia/Kolkata' })
 }
 
 export function daysBetween(fromIso: string, to = new Date()) {
@@ -23,24 +24,24 @@ export function daysBetween(fromIso: string, to = new Date()) {
 
 export function relativeDay(iso: string) {
   const n = daysBetween(iso)
-  if (n <= 0) return 'Today'
-  if (n === 1) return 'Yesterday'
-  return `${n} days ago`
+  if (n <= 0) return t('Today')
+  if (n === 1) return t('Yesterday')
+  return t('{n} days ago', { n })
 }
 
 export function startsIn(iso?: string) {
-  if (!iso) return 'Starts soon'
+  if (!iso) return t('Starts soon')
   const n = -daysBetween(iso)
-  if (n <= 0) return 'Starts today'
-  if (n === 1) return 'Starts tomorrow'
-  return `Starts in ${n} days`
+  if (n <= 0) return t('Starts today')
+  if (n === 1) return t('Starts tomorrow')
+  return t('Starts in {n} days', { n })
 }
 
 export function greeting(now = new Date()) {
   const h = now.getHours()
-  if (h < 12) return 'Good morning'
-  if (h < 17) return 'Good afternoon'
-  return 'Good evening'
+  if (h < 12) return t('Good morning')
+  if (h < 17) return t('Good afternoon')
+  return t('Good evening')
 }
 
 export function initials(name: string) {
@@ -49,20 +50,32 @@ export function initials(name: string) {
   return (parts[0][0] + parts[1][0]).toUpperCase()
 }
 
+/** "1 week" / "8 weeks". Pass English words. Each form is a translation key: "{n} week", "{n} weeks". */
 export function plural(n: number, one: string, many = `${one}s`) {
-  return `${n} ${n === 1 ? one : many}`
+  return t(`{n} ${n === 1 ? one : many}`, { n })
 }
 
+/** Read at the moment of use, so it follows the chosen language. */
 export const statusLabel: Record<ApplicationStatus, string> = {
-  waiting: 'Waiting to hear',
-  accepted: 'Accepted',
-  not_selected: 'Not this time',
-  completed: 'Completed',
-  withdrawn: 'Withdrawn',
+  get waiting() {
+    return t('Waiting to hear')
+  },
+  get accepted() {
+    return t('Accepted')
+  },
+  get not_selected() {
+    return t('Not this time')
+  },
+  get completed() {
+    return t('Completed')
+  },
+  get withdrawn() {
+    return t('Withdrawn')
+  },
 }
 
 export function visitedText(sme: SME) {
-  return sme.verified && sme.visitedOn ? `Visited by Setu · ${shortDate(sme.visitedOn)}` : ''
+  return sme.verified && sme.visitedOn ? t('Visited by Setu · {date}', { date: shortDate(sme.visitedOn) }) : ''
 }
 
 /** Turns "what will the intern help with" picks into a sensible opening title. */
@@ -75,7 +88,7 @@ export function titleFromTasks(tasks: string[]) {
     'Social media': 'Social Media Intern',
     Delivery: 'Delivery Assistant',
   }
-  const first = tasks.find((t) => map[t])
+  const first = tasks.find((task) => map[task])
   return first ? map[first] : 'Intern'
 }
 
@@ -90,6 +103,7 @@ const SMALL_WORDS = new Set(['a', 'an', 'the', 'and', 'but', 'or', 'nor', 'for',
  * Small words stay lower case unless first or last. Words already in capitals (GST, AICTE) are left alone.
  */
 export function titleCase(text: string) {
+  if (getLang() !== 'en') return text // Hindi and Marathi have no capital letters
   const parts = text.split(/(\s+)/)
   const wordIdx = parts.map((p, i) => (p.trim() && /[A-Za-z]/.test(p) ? i : -1)).filter((i) => i >= 0)
   const first = wordIdx[0]

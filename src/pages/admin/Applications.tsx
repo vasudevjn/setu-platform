@@ -9,6 +9,7 @@ import { findInternship, findSme, findStudent } from '../../lib/selectors'
 import { relativeDay, statusLabel } from '../../lib/format'
 import { useToast } from '../../components/ui/Toast'
 import type { ApplicationStatus } from '../../types'
+import { t } from '../../lib/i18n'
 
 const CHOICES: ApplicationStatus[] = ['waiting', 'accepted', 'not_selected', 'completed']
 type Filter = 'all' | ApplicationStatus
@@ -24,16 +25,16 @@ export default function AdminApplications() {
 
   return (
     <div className="flex flex-col gap-5">
-      <PageTitle title="Applications" sub="Change a status when you have spoken to the business or the student." />
-      <div role="group" aria-label="Filter applications" className="flex flex-wrap gap-2">
-        <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>All</Chip>
+      <PageTitle title={t('Applications')} sub={t('Change a status when you have spoken to the business or the student.')} />
+      <div role="group" aria-label={t('Filter applications')} className="flex flex-wrap gap-2">
+        <Chip selected={filter === 'all'} onClick={() => setFilter('all')}>{t('All')}</Chip>
         {CHOICES.map((c) => (
           <Chip key={c} selected={filter === c} onClick={() => setFilter(c)}>{statusLabel[c]}</Chip>
         ))}
       </div>
 
       {list.length === 0 ? (
-        <EmptyState title="Nothing here" body="No applications match this filter." />
+        <EmptyState title={t('Nothing here')} body={t('No applications match this filter.')} />
       ) : (
         <ul className="flex flex-col gap-3">
           {list.map((a) => {
@@ -46,19 +47,24 @@ export default function AdminApplications() {
               <li key={a.id}>
                 <Card className="flex flex-wrap items-center gap-x-4 gap-y-3 p-4">
                   <div className="min-w-0 flex-1 basis-56">
-                    <p className="font-semibold leading-snug">{st.shortName} <span className="font-normal text-muted">applied to</span> {i.title}</p>
-                    <p className="text-detail text-muted">{sme.name} · {relativeDay(a.appliedAt)}{a.source === 'setu' ? ' · Added by Setu' : ''}</p>
+                    <p className="font-semibold leading-snug">{st.shortName} <span className="font-normal text-muted">{t('applied to')}</span> {t(i.title)}</p>
+                    <p className="text-detail text-muted">{sme.name} · {relativeDay(a.appliedAt)}{a.source === 'setu' ? ` · ${t('Added by Setu')}` : ''}</p>
                   </div>
                   <StatusBadge status={a.status} />
                   <div>
-                    <label htmlFor={selectId} className="sr-only">Status for {st.shortName} at {sme.name}</label>
+                    <label htmlFor={selectId} className="sr-only">{t('Status for {name} at {business}', { name: st.shortName, business: sme.name })}</label>
                     <select
                       id={selectId}
                       value={a.status}
                       onChange={(e) => {
                         const next = e.target.value as ApplicationStatus
                         setStatus(a.id, next)
-                        show({ message: `${st.shortName} is now "${statusLabel[next]}". ${next === 'waiting' ? '' : 'They have been told.'}`.trim() })
+                        show({
+                          message:
+                            next === 'waiting'
+                              ? t('{name} is now "{status}".', { name: st.shortName, status: statusLabel[next] })
+                              : t('{name} is now "{status}". They have been told.', { name: st.shortName, status: statusLabel[next] }),
+                        })
                       }}
                       className="min-h-11 rounded-button border border-line bg-white px-3 text-body"
                     >

@@ -6,6 +6,7 @@ import type { Internship } from '../../types'
 import { useApp } from '../../hooks/useApp'
 import { applicationFor, findSme } from '../../lib/selectors'
 import { useToast } from '../ui/Toast'
+import { t } from '../../lib/i18n'
 
 /** Manual, assisted matching (a v1 decision): the Setu team adds a student who suits an opening. */
 export function MatchSheet({ internship, onClose }: { internship: Internship | null; onClose: () => void }) {
@@ -19,11 +20,11 @@ export function MatchSheet({ internship, onClose }: { internship: Internship | n
     : []
 
   return (
-    <Sheet open={!!internship} onClose={onClose} title={internship ? `Match students to ${internship.title}` : ''}>
+    <Sheet open={!!internship} onClose={onClose} title={internship ? t('Match students to {title}', { title: t(internship.title) }) : ''}>
       {internship && sme && (
         <div className="flex flex-col gap-3">
           <p className="text-muted">
-            Pick students you think would suit {sme.name}. They are added to the applicant list, marked "Added by Setu". The student is told about it.
+            {t('Pick students you think would suit {name}. They are added to the applicant list, marked "Added by Setu". The student is told about it.', { name: sme.name })}
           </p>
           <ul className="flex flex-col gap-2">
             {candidates.map(({ s, app }) => {
@@ -33,21 +34,21 @@ export function MatchSheet({ internship, onClose }: { internship: Internship | n
                   <Avatar name={s.shortName} size="sm" tone={toneFor(s.id)} />
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold leading-snug">{s.shortName}</p>
-                    <p className="text-detail text-muted">{s.course} · {s.skills.join(', ')}</p>
+                    <p className="text-detail text-muted">{t(s.course)} · {s.skills.map((k) => t(k)).join(', ')}</p>
                   </div>
                   {already ? (
-                    <Tag tone="neutral">Applied</Tag>
+                    <Tag tone="neutral">{t('Applied')}</Tag>
                   ) : (
                     <Button
                       size="sm"
                       variant="soft"
-                      aria-label={`Add ${s.shortName} to ${internship.title}`}
+                      aria-label={t('Add {name} to {title}', { name: s.shortName, title: t(internship.title) })}
                       onClick={() => {
                         apply(internship.id, s.id, 'setu')
-                        show({ message: `${s.shortName} added to ${internship.title}.` })
+                        show({ message: t('{name} added to {title}.', { name: s.shortName, title: t(internship.title) }) })
                       }}
                     >
-                      Add
+                      {t('Add')}
                     </Button>
                   )}
                 </li>

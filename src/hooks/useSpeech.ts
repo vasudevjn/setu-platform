@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { LANGS, getLang } from '../lib/i18n'
 
 interface RecognitionLike {
   lang: string
@@ -34,7 +35,7 @@ export function useSpeech(onText: (text: string) => void) {
     const C = getCtor()
     if (!C) return
     const r = new C()
-    r.lang = 'en-IN'
+    r.lang = LANGS.find((l) => l.code === getLang())?.locale ?? 'en-IN' // listens in the chosen language
     r.interimResults = false
     r.continuous = false
     r.onresult = (e) => {

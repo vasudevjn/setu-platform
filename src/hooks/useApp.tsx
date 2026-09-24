@@ -25,6 +25,8 @@ import { findInternship, findSme, findStudent, type Snapshot } from '../lib/sele
 import { isRemote } from '../lib/supabase'
 import { DbError, diff, fetchAll, push, resetRemote, sameDomain, subscribe, type Domain } from '../lib/db'
 import { useToast } from '../components/ui/Toast'
+import { fmt, t } from '../lib/i18n'
+import { NOTES } from '../lib/notes'
 
 /** Local mode: the whole demo lives here. */
 const STORAGE_KEY = 'setu.demo.v1'
@@ -158,8 +160,8 @@ function reducer(state: AppState, action: Action): AppState {
           note({
             role: 'sme',
             targetId: sme.id,
-            title: `${student.shortName} applied for ${internship.title}`,
-            body: 'Have a look at their profile when you have a minute.',
+            title: fmt(NOTES.applied, { student: student.shortName, opening: internship.title }),
+            body: NOTES.appliedBody,
             href: `/sme/openings/${internship.id}/applicants`,
             refId: app.id,
             kind: 'info',
@@ -188,11 +190,11 @@ function reducer(state: AppState, action: Action): AppState {
       } else if (!action.silent && internship && sme) {
         const text =
           action.status === 'accepted'
-            ? { title: `${sme.ownerFirstName} accepted your application`, body: `${internship.title} at ${sme.name}. ${'Open to see when you start.'}` }
+            ? { title: fmt(NOTES.accepted, { owner: sme.ownerFirstName }), body: fmt(NOTES.acceptedBody, { opening: internship.title, business: sme.name }) }
             : action.status === 'not_selected'
-              ? { title: `Not this time for ${internship.title}`, body: 'Thank you for applying. There are other openings near you.' }
+              ? { title: fmt(NOTES.notSelected, { opening: internship.title }), body: NOTES.notSelectedBody }
               : action.status === 'completed'
-                ? { title: `Internship completed at ${sme.name}`, body: 'Well done. We will send your college a completion letter.' }
+                ? { title: fmt(NOTES.completed, { business: sme.name }), body: NOTES.completedBody }
                 : null
         if (text) {
           notifications = [
@@ -215,8 +217,8 @@ function reducer(state: AppState, action: Action): AppState {
           note({
             role: 'sme',
             targetId: sme.id,
-            title: 'Setu has visited you',
-            body: 'Your business is verified. Your openings are now live for students.',
+            title: NOTES.verified,
+            body: NOTES.verifiedBody,
             href: '/sme/openings',
             kind: 'info',
           }),
@@ -235,8 +237,8 @@ function reducer(state: AppState, action: Action): AppState {
               note({
                 role: 'admin',
                 targetId: 'admin',
-                title: `New opening from ${sme.name}`,
-                body: `${action.internship.title}${sme.verified ? ' is live.' : ' is waiting for a Setu visit.'}`,
+                title: fmt(NOTES.newOpening, { business: sme.name }),
+                body: fmt(sme.verified ? NOTES.newOpeningLive : NOTES.newOpeningWaiting, { opening: action.internship.title }),
                 href: '/admin/openings',
                 kind: 'info',
               }),
@@ -374,7 +376,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       chain.current = chain.current
         .then(() => push(ops))
         .catch(() => {
-          show({ message: 'That change could not be saved. Showing the saved version.' })
+          show({ message: t('That change could not be saved. Showing the saved version.') })
         })
         .finally(() => {
           pending.current--
@@ -510,7 +512,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const next = await fetchAll()
       commit({ ...ref.current, ...next, saved: [] })
     } catch {
-      show({ message: 'Could not reset the demo data. Please try again.' })
+      show({ message: t('Could not reset the demo data. Please try again.') })
     } finally {
       pending.current--
       if (pending.current === 0) refreshSoon(0)

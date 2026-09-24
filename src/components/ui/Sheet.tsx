@@ -1,6 +1,8 @@
 import { useEffect, useRef, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import { titleCase } from '../../lib/format'
+import { t } from '../../lib/i18n'
 
 interface SheetProps {
   open: boolean
@@ -55,7 +57,8 @@ export function Sheet({ open, onClose, title, children, footer }: SheetProps) {
   }, [open])
 
   if (!open) return null
-  return (
+  // Drawn on the page body, so a blurred or transformed parent (like the sticky header) cannot trap it.
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
       <div className="absolute inset-0 animate-[fade_0.2s_ease-out] bg-ink/45" onClick={onClose} aria-hidden="true" />
       <div
@@ -67,13 +70,14 @@ export function Sheet({ open, onClose, title, children, footer }: SheetProps) {
       >
         <div className="flex items-center justify-between px-5 pb-2 pt-5">
           <h2 className="text-heading font-semibold">{titleCase(title)}</h2>
-          <button type="button" aria-label="Close" onClick={onClose} className="grid size-11 place-items-center rounded-full hover:bg-stone-mist">
+          <button type="button" aria-label={t('Close')} onClick={onClose} className="grid size-11 place-items-center rounded-full hover:bg-stone-mist">
             <X className="size-5" aria-hidden="true" />
           </button>
         </div>
         <div className="overflow-y-auto px-5 pb-4">{children}</div>
         {footer && <div className="safe-bottom border-t border-line/60 bg-white/60 px-5 py-4">{footer}</div>}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
