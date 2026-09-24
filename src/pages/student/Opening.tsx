@@ -84,7 +84,7 @@ export default function Opening() {
           <FactGrid internship={internship} sme={sme} />
 
           <section>
-            <h2 className="text-body font-bold">What you'll do</h2>
+            <h2 className="text-body font-bold">What You'll Do</h2>
             <ul className="mt-2 list-disc space-y-1.5 pl-5 text-button text-ink/90 marker:text-muted">
               {internship.tasks.map((t) => (
                 <li key={t}>{t}</li>
@@ -104,7 +104,7 @@ export default function Opening() {
           </section>
 
           <section>
-            <h2 className="text-body font-bold">Who we're looking for</h2>
+            <h2 className="text-body font-bold">Who We're Looking For</h2>
             <ul className="mt-2 list-disc space-y-1.5 pl-5 text-button text-ink/90 marker:text-muted">
               {internship.requirements.map((t) => (
                 <li key={t}>{t}</li>
@@ -113,7 +113,7 @@ export default function Opening() {
           </section>
 
           <section>
-            <h2 className="text-body font-bold">About the business</h2>
+            <h2 className="text-body font-bold">About the Business</h2>
             <p className="mt-2 text-body text-muted">{sme.about}</p>
             <p className="mt-2 text-detail text-muted">
               {sme.staff} · {sme.area} · Since {sme.sinceYear}

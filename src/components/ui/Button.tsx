@@ -2,6 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
 import { cn } from '../../lib/cn'
+import { titleNode } from '../../lib/format'
 
 type Variant = 'primary' | 'secondary' | 'soft' | 'ghost' | 'apricot'
 type Size = 'md' | 'lg' | 'sm'
@@ -53,7 +54,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {...rest}
     >
       {loading ? <Loader2 className="size-5 animate-spin" aria-hidden="true" /> : icon}
-      {children}
+      {titleNode(children)}
       {!loading && iconRight}
     </button>
   )
@@ -63,7 +64,7 @@ export function LinkButton({ variant, size, full, icon, iconRight, className, ch
   return (
     <Link className={classes({ variant, size, full, className })} {...rest}>
       {icon}
-      {children}
+      {titleNode(children)}
       {iconRight}
     </Link>
   )
@@ -81,7 +82,7 @@ export function ExternalButton({
   return (
     <a className={classes({ variant, size, full, className })} {...rest}>
       {icon}
-      {children}
+      {titleNode(children)}
     </a>
   )
 }

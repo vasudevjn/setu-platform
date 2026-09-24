@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { CheckCircle2, X } from 'lucide-react'
+import { titleCase } from '../../lib/format'
 
 interface ToastInput {
   message: string
@@ -50,7 +51,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 }}
                 className="min-h-11 rounded-button px-3 text-button font-bold text-apricot hover:bg-white/10"
               >
-                {item.action.label}
+                {titleCase(item.action.label)}
               </button>
             )}
             <button type="button" aria-label="Dismiss message" onClick={dismiss} className="grid size-11 place-items-center rounded-button hover:bg-white/10">

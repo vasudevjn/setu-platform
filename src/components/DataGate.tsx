@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import { Logo } from './brand/Logo'
 import { Button } from './ui/Button'
 import { useApp } from '../hooks/useApp'
+import { supabaseHost } from '../lib/supabase'
+import { titleCase } from '../lib/format'
 
 /** Shows the app once data is ready. In local mode this is instant. */
 export function DataGate({ children }: { children: ReactNode }) {
@@ -18,11 +20,12 @@ export function DataGate({ children }: { children: ReactNode }) {
           </p>
         ) : (
           <div role="alert" className="flex w-full flex-col items-center gap-3 rounded-card bg-white p-6 shadow-card">
-            <h1 className="text-heading font-semibold">{titleFor(data.kind)}</h1>
+            <h1 className="text-heading font-semibold">{titleCase(titleFor(data.kind))}</h1>
             <p className="text-muted">{bodyFor(data.kind)}</p>
-            {data.kind !== 'network' && (
-              <p className="w-full break-words rounded-button bg-cream px-3 py-2 text-left text-detail text-muted">{data.message}</p>
-            )}
+            <div className="w-full break-words rounded-button bg-cream px-3 py-2 text-left text-detail text-muted">
+              <p>Project: {supabaseHost || 'unknown'}</p>
+              <p>Supabase said: {data.detail ?? data.message}</p>
+            </div>
             <div className="mt-2 w-full max-w-xs">
               <Button onClick={reload} full>
                 Try again
@@ -44,6 +47,6 @@ function titleFor(kind: 'empty' | 'missing' | 'network' | 'other') {
 function bodyFor(kind: 'empty' | 'missing' | 'network' | 'other') {
   if (kind === 'network') return 'Check your internet connection and try again.'
   if (kind === 'other') return 'Please try again. If it keeps happening, check the Supabase URL and key.'
-  if (kind === 'missing') return 'The tables are missing. Push the supabase/migrations folder to the branch Supabase watches, then try again.'
+  if (kind === 'missing') return 'This Supabase project does not have the Setu tables yet. Check that the migrations ran on the project shown below, then try again.'
   return 'The tables exist but have no demo data. Run the seed migration, or call reset_demo_data() in the Supabase SQL editor, then try again.'
 }

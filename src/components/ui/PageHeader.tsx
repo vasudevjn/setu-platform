@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { titleCase } from '../../lib/format'
 
 export function BackButton({ to, label = 'Go back', onClick }: { to?: string; label?: string; onClick?: () => void }) {
   const navigate = useNavigate()
@@ -21,7 +22,7 @@ export function PageTitle({ title, sub, action }: { title: string; sub?: ReactNo
   return (
     <div className="flex items-start justify-between gap-3">
       <div>
-        <h1 className="text-title font-bold">{title}</h1>
+        <h1 className="text-title font-bold">{titleCase(title)}</h1>
         {sub && <p className="mt-1 text-body text-muted">{sub}</p>}
       </div>
       {action}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { X } from 'lucide-react'
+import { titleCase } from '../../lib/format'
 
 interface SheetProps {
   open: boolean
@@ -65,7 +66,7 @@ export function Sheet({ open, onClose, title, children, footer }: SheetProps) {
         className="relative flex max-h-[92dvh] w-full animate-rise flex-col rounded-t-sheet bg-cream shadow-lift sm:max-w-md sm:rounded-sheet"
       >
         <div className="flex items-center justify-between px-5 pb-2 pt-5">
-          <h2 className="text-heading font-semibold">{title}</h2>
+          <h2 className="text-heading font-semibold">{titleCase(title)}</h2>
           <button type="button" aria-label="Close" onClick={onClose} className="grid size-11 place-items-center rounded-full hover:bg-stone-mist">
             <X className="size-5" aria-hidden="true" />
           </button>

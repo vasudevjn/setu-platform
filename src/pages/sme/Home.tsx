@@ -1,7 +1,7 @@
 import { Link, useOutletContext } from 'react-router-dom'
 import { Bell, Clock, Plus } from 'lucide-react'
 import { useApp } from '../../hooks/useApp'
-import { greeting, plural } from '../../lib/format'
+import { greeting, plural, titleCase } from '../../lib/format'
 import { applicantsFor, openingsOfSme, waitingCountForSme } from '../../lib/selectors'
 import { Card } from '../../components/ui/Card'
 import { Tag } from '../../components/ui/Tag'
@@ -34,7 +34,7 @@ export default function SmeHome() {
           </div>
         </div>
         <h1 className="mt-4 text-title font-bold leading-tight lg:text-[2rem]">
-          {greeting()}, {currentSme.ownerFirstName}
+          {titleCase(greeting())}, {currentSme.ownerFirstName}
         </h1>
         <p className="mt-1 text-body text-white/90">
           {!currentSme.verified
@@ -58,7 +58,7 @@ export default function SmeHome() {
           <div className="flex flex-col gap-4">
             {openings.length === 0 ? (
               <Card className="flex flex-col gap-3 p-5">
-                <h2 className="text-heading font-semibold">You have no openings yet</h2>
+                <h2 className="text-heading font-semibold">You Have No Openings Yet</h2>
                 <p className="text-muted">Tell us what you need help with. One question at a time.</p>
                 <LinkButton to="/sme/post" size="lg" full>
                   Post an opening

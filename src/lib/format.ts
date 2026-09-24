@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { ApplicationStatus, Internship, SME } from '../types'
 
 export function money(stipend: number | null) {
@@ -80,4 +81,33 @@ export function titleFromTasks(tasks: string[]) {
 
 export function isNewThisWeek(i: Internship) {
   return daysBetween(i.postedAt) <= 7
+}
+
+const SMALL_WORDS = new Set(['a', 'an', 'the', 'and', 'but', 'or', 'nor', 'for', 'so', 'yet', 'at', 'by', 'in', 'of', 'on', 'to', 'as', 'per', 'vs'])
+
+/**
+ * Title Case for headings, buttons and navigation ("My Applications").
+ * Small words stay lower case unless first or last. Words already in capitals (GST, AICTE) are left alone.
+ */
+export function titleCase(text: string) {
+  const parts = text.split(/(\s+)/)
+  const wordIdx = parts.map((p, i) => (p.trim() && /[A-Za-z]/.test(p) ? i : -1)).filter((i) => i >= 0)
+  const first = wordIdx[0]
+  const last = wordIdx[wordIdx.length - 1]
+  return parts
+    .map((part, i) => {
+      if (!part.trim()) return part
+      const bare = part.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, '').toLowerCase()
+      if (i !== first && i !== last && SMALL_WORDS.has(bare)) return part
+      // Capitalise the first letter, but only when the word starts with a letter (leave "₹4,000/month" and "10–5" alone).
+      return part.replace(/^([("'“]*)([a-z])/, (_m, lead: string, ch: string) => lead + ch.toUpperCase())
+    })
+    .join('')
+}
+
+/** Title-cases plain text children (used by buttons and chips). Anything else passes through. */
+export function titleNode(node: ReactNode): ReactNode {
+  if (typeof node === 'string') return titleCase(node)
+  if (Array.isArray(node)) return node.map((n) => (typeof n === 'string' ? titleCase(n) : n))
+  return node
 }

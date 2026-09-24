@@ -14,7 +14,7 @@ import { InternshipCard } from '../../components/internship/InternshipCard'
 import { Sheet } from '../../components/ui/Sheet'
 import { HelperNote } from '../../components/ui/HelperNote'
 import { useToast } from '../../components/ui/Toast'
-import { money, plural, startsIn } from '../../lib/format'
+import { money, plural, startsIn, titleCase } from '../../lib/format'
 
 export default function ApplicationStatusPage() {
   const { id } = useParams()
@@ -66,7 +66,7 @@ export default function ApplicationStatusPage() {
         </div>
         <div className="mt-4">
           <StatusBadge status={s} />
-          <h1 className="mt-2 text-title font-bold">{headline}</h1>
+          <h1 className="mt-2 text-title font-bold">{titleCase(headline)}</h1>
           <p className="mt-1 text-body text-muted">{subline}</p>
         </div>
       </header>
@@ -135,7 +135,7 @@ export default function ApplicationStatusPage() {
       )}
       {(s === 'accepted' || s === 'completed') && (
         <Link to="/student/applications" className="min-h-11 py-2 text-center font-semibold text-teal underline-offset-4 hover:underline">
-          Back to my applications
+          Back to My Applications
         </Link>
       )}
 

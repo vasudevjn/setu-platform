@@ -34,7 +34,7 @@ interface NavItem {
 const nav: Record<Role, NavItem[]> = {
   student: [
     { to: '/student', label: 'Home', icon: House, end: true },
-    { to: '/student/applications', label: 'My applications', icon: Briefcase },
+    { to: '/student/applications', label: 'My Applications', icon: Briefcase },
     { to: '/student/profile', label: 'Profile', icon: User },
   ],
   sme: [

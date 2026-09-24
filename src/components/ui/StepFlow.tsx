@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { BackButton } from './PageHeader'
 import { SegmentBar } from './Progress'
 import { Button } from './Button'
+import { titleCase } from '../../lib/format'
 
 interface StepFlowProps {
   step: number
@@ -39,7 +40,7 @@ export function StepFlow({ step, total, title, sub, children, onBack, onNext, ne
         }}
       >
         <div className="mt-6 flex-1">
-          <h1 className="text-title font-bold">{title}</h1>
+          <h1 className="text-title font-bold">{titleCase(title)}</h1>
           {sub && <p className="mt-2 text-body text-muted">{sub}</p>}
           <div className="mt-6 flex flex-col gap-5">{children}</div>
         </div>

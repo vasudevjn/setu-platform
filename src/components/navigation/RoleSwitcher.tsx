@@ -29,7 +29,7 @@ export function RoleSwitcher({ open, onClose }: { open: boolean; onClose: () => 
   ]
 
   return (
-    <Sheet open={open} onClose={onClose} title="Continue as">
+    <Sheet open={open} onClose={onClose} title="Continue As">
       <p className="mb-4 text-muted">This is a demo. There is no login. Pick who you want to be.</p>
       <div className="flex flex-col gap-2.5">
         {options.map(({ role, icon: Icon, sub }) => (

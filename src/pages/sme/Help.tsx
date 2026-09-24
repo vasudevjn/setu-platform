@@ -21,7 +21,7 @@ export default function SmeHelp() {
       <SupportCard businessName={currentSme.name} />
 
       <section aria-label="Common questions" className="flex flex-col gap-2">
-        <h2 className="text-heading font-semibold">Common questions</h2>
+        <h2 className="text-heading font-semibold">Common Questions</h2>
         {faqs.map((f) => (
           <details key={f.q} className="group rounded-card bg-white shadow-card">
             <summary className="flex min-h-14 cursor-pointer items-center justify-between gap-3 rounded-card px-4 py-3 font-semibold">
@@ -36,7 +36,7 @@ export default function SmeHelp() {
       <Card className="p-2">
         <Link to="/sme/profile" className="flex min-h-14 items-center gap-3 rounded-card px-3 font-semibold hover:bg-cream">
           <Building2 className="size-5 text-teal" aria-hidden="true" />
-          Business profile
+          Business Profile
         </Link>
       </Card>
     </div>

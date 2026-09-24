@@ -15,7 +15,7 @@ import { LinkButton } from '../../components/ui/Button'
 import { useSpeech } from '../../hooks/useSpeech'
 import { useToast } from '../../components/ui/Toast'
 import { HOURS_CHOICES, STIPEND_CHOICES, TASK_CHIPS, WEEK_CHOICES } from '../../lib/options'
-import { money, titleFromTasks } from '../../lib/format'
+import { money, titleFromTasks, titleCase } from '../../lib/format'
 import { cn } from '../../lib/cn'
 import { PARTNER_COLLEGE } from '../../lib/config'
 
@@ -94,7 +94,7 @@ export default function PostOpening() {
     return (
       <div className="mx-auto flex max-w-xl flex-col items-center pt-8 text-center">
         <CheckBurst size={136} />
-        <h1 className="mt-6 text-title font-bold lg:text-[2rem]">{currentSme.verified ? 'Your opening is live.' : 'Your opening is saved.'}</h1>
+        <h1 className="mt-6 text-title font-bold lg:text-[2rem]">{titleCase(currentSme.verified ? 'Your opening is live.' : 'Your opening is saved.')}</h1>
         <p className="mt-3 max-w-sm text-body text-muted">
           {currentSme.verified ? "We'll help you review the first applications." : 'It goes live for students as soon as Setu visits you. Anjali will call you to fix a time.'}
         </p>

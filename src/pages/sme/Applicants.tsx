@@ -7,7 +7,7 @@ import { ApplicantCard } from '../../components/sme/ApplicantCard'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { LinkButton } from '../../components/ui/Button'
 import { useToast } from '../../components/ui/Toast'
-import { plural } from '../../lib/format'
+import { plural, titleCase } from '../../lib/format'
 
 export default function Applicants() {
   const { id } = useParams()
@@ -42,7 +42,7 @@ export default function Applicants() {
           <BackButton to="/sme/openings" label="Back to openings" />
           <p className="text-detail text-muted">{internship.title}</p>
         </div>
-        <h1 className="mt-1 text-title font-bold">{plural(apps.length, 'student')} applied</h1>
+        <h1 className="mt-1 text-title font-bold">{titleCase(`${plural(apps.length, 'student')} applied`)}</h1>
         <p className="mt-1 flex items-center gap-1.5 text-detail text-muted">
           <ShieldCheck className="size-4 text-teal" aria-hidden="true" />
           Each is a confirmed final-year student

@@ -135,7 +135,7 @@ function How() {
   return (
     <Section id="how">
       <p className="label-caps">How Setu works</p>
-      <h2 className="mt-2 max-w-2xl text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">A bridge between your college and the shops in your town.</h2>
+      <h2 className="mt-2 max-w-2xl text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">A Bridge Between Your College and the Shops in Your Town.</h2>
       <ol className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {steps.map((s) => (
           <li key={s.n} className="rounded-card bg-white p-5 shadow-card">
@@ -182,7 +182,7 @@ function Example() {
       <div className="grid items-center gap-10 lg:grid-cols-2">
         <div>
           <p className="label-caps">What it feels like</p>
-          <h2 className="mt-2 text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">Everything you ask before you trust an opening, answered up front.</h2>
+          <h2 className="mt-2 text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">Everything You Ask Before You Trust an Opening, Answered Up Front.</h2>
           <ul className="mt-5 space-y-3 text-body">
             {[
               ['Is it real?', 'Visited by Setu, with the date.'],
@@ -243,7 +243,7 @@ function Stories() {
   return (
     <Section className="bg-white">
       <p className="label-caps">What we are building toward</p>
-      <h2 className="mt-2 max-w-2xl text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">Stories from our pilot plan.</h2>
+      <h2 className="mt-2 max-w-2xl text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">Stories From Our Pilot Plan.</h2>
       <ul className="mt-8 grid gap-4 md:grid-cols-2">
         {quotes.map((q) => (
           <li key={q.who} className="flex flex-col gap-4 rounded-card bg-cream p-6">
@@ -268,7 +268,7 @@ function Faq() {
     <Section id="faq">
       <div className="mx-auto max-w-3xl">
         <p className="label-caps">Questions</p>
-        <h2 className="mt-2 text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">Things people ask us.</h2>
+        <h2 className="mt-2 text-[1.75rem] font-bold leading-tight lg:text-[2.25rem]">Things People Ask Us.</h2>
         <div className="mt-6 flex flex-col gap-2">
           {faqs.map((f) => (
             <details key={f.q} className="group rounded-card bg-white shadow-card">

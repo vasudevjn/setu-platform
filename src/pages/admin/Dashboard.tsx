@@ -41,7 +41,7 @@ export default function AdminDashboard() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <section aria-labelledby="queue">
-          <h2 id="queue" className="text-heading font-semibold">SME verification queue</h2>
+          <h2 id="queue" className="text-heading font-semibold">SME Verification Queue</h2>
           <p className="mb-3 text-detail text-muted">Verify only after an in-person visit.</p>
           {queue.length === 0 ? (
             <Card className="p-5 text-muted">Everyone in the queue has been visited. Nice work.</Card>
@@ -67,9 +67,9 @@ export default function AdminDashboard() {
 
         <section aria-labelledby="recent">
           <div className="flex items-end justify-between">
-            <h2 id="recent" className="text-heading font-semibold">Recent applications</h2>
+            <h2 id="recent" className="text-heading font-semibold">Recent Applications</h2>
             <Link to="/admin/applications" className="inline-flex min-h-11 items-center gap-1 font-semibold text-teal">
-              See all <ChevronRight className="size-4" aria-hidden="true" />
+              See All <ChevronRight className="size-4" aria-hidden="true" />
             </Link>
           </div>
           <ul className="mt-2 flex flex-col gap-2">

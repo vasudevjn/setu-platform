@@ -86,7 +86,7 @@ export default function SmeOpenings() {
         )}
       </div>
       <Link to="/sme/help" className="text-center font-semibold text-teal underline-offset-4 hover:underline">
-        Need help? Talk to Anjali
+        Need Help? Talk to Anjali
       </Link>
     </div>
   )

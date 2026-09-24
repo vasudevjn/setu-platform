@@ -1,6 +1,7 @@
 import { Check, Plus } from 'lucide-react'
 import type { ButtonHTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
+import { titleNode } from '../../lib/format'
 
 interface ChipProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
   selected?: boolean
@@ -31,7 +32,7 @@ export function Chip({ selected, onClick, kind = 'filter', big, className, child
       {...rest}
     >
       {isPick && (selected ? <Check className="size-3.5" strokeWidth={3} aria-hidden="true" /> : <Plus className="size-3.5" aria-hidden="true" />)}
-      {children}
+      {titleNode(children)}
     </button>
   )
 }

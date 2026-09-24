@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Sparkle } from '../brand/Spot'
+import { titleCase } from '../../lib/format'
 
 export function EmptyState({ title, body, action }: { title: string; body: string; action?: ReactNode }) {
   return (
@@ -7,7 +8,7 @@ export function EmptyState({ title, body, action }: { title: string; body: strin
       <span className="grid size-14 place-items-center rounded-full bg-apricot-mist text-apricot">
         <Sparkle size={26} />
       </span>
-      <h2 className="text-heading font-semibold">{title}</h2>
+      <h2 className="text-heading font-semibold">{titleCase(title)}</h2>
       <p className="max-w-sm text-muted">{body}</p>
       {action && <div className="mt-2 w-full max-w-xs">{action}</div>}
     </div>

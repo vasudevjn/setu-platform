@@ -18,7 +18,7 @@ export default function Continue() {
         <Logo height={38} />
       </Link>
       <div>
-        <h1 className="text-title font-bold">Continue as</h1>
+        <h1 className="text-title font-bold">Continue As</h1>
         <p className="mt-1 text-muted">This is a prototype. There is no login. Pick who you want to be.</p>
       </div>
       <div className="flex flex-col gap-3">
@@ -50,7 +50,7 @@ export default function Continue() {
                   navigate(`${to}/onboarding`)
                 }}
               >
-                See the first-time setup
+                See the First-Time Setup
               </button>
             )}
           </div>
