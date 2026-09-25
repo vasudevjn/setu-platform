@@ -17,12 +17,12 @@ Satpur MIDC, Nashik
 Satpur MIDC
 40 people
 Accounting and tax
-A small accounting office that handles GST, billing and books for about 60 local shops. Busy at every month end.
+A small accounting office that handles GST, billing and books for about 60 local shops. Most client records are still on paper, and we want to move them onto a simple digital system.
 College Road, Nashik
 College Road
 6 people
 Packaged foods
-We make pickles, papads and ready mixes, sold in local shops. We want to reach more homes on Instagram and WhatsApp.
+We make pickles, papads and ready mixes, sold in local shops. We want to go digital: list ourselves on Google, sell on WhatsApp, and reach homes beyond our current shops.
 Ambad MIDC, Nashik
 Ambad MIDC
 25 people
@@ -37,6 +37,7 @@ At the shop, Panchavati
 Billing Assistant
 Prepare GST invoices for clients
 Keep a record of bills sent and payments received
+Move paper client files into a shared digital record so nothing gets lost
 Call clients kindly to remind them about pending bills
 Final-year BCom student
 Comfortable with Excel
@@ -51,9 +52,9 @@ Good with Excel and simple numbers
 Happy to spend some time on the shop floor
 At our unit, Satpur MIDC
 Social Media Intern
-Post photos of our products on Instagram and WhatsApp
-Reply to customer messages
-Make simple posters in Canva
+List us on Google so people can find the shop when they search nearby
+Set up a WhatsApp Business catalog so customers can order directly
+Post photos of our products on Instagram and reply to messages
 Final-year student from any course
 Uses Instagram and WhatsApp every day
 Simple Marathi and English writing
@@ -66,6 +67,19 @@ Final-year student, BCom preferred
 Careful with numbers and handwriting
 Interest in vehicles is a plus
 At the shop, Nashik Road
+General store
+A neighbourhood general store on Gangapur Road. We serve about 200 families nearby, all by walk-in and phone orders so far. We want help getting online.
+Gangapur Road, Nashik
+Gangapur Road
+5 people
+Digital Transformation Intern
+Set up a Google Business listing so customers can find us on Maps
+Create a WhatsApp Business catalog with our products and prices
+Put up a QR code at the counter so customers can pay digitally
+Final-year BCA, BBA or BCom student
+Comfortable with smartphones and everyday apps
+Patient enough to explain things to the owner step by step
+At the shop, Gangapur Road
 BCom
 Final year
 BCOM Arts & Commerce College

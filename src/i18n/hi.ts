@@ -676,7 +676,26 @@ const dict: Record<string, string> = {
   "(later)": "(बाद में)",
   "Setu is a bridge between your college and a local business": "Setu आपके कॉलेज और स्थानीय बिज़नेस के बीच एक पुल है",
   "Language": "भाषा",
-  "Use Setu in English, Hindi or Marathi.": "Setu को अंग्रेज़ी, हिन्दी या मराठी में इस्तेमाल करें।"
+  "Use Setu in English, Hindi or Marathi.": "Setu को अंग्रेज़ी, हिन्दी या मराठी में इस्तेमाल करें।",
+  "General store": "जनरल स्टोर",
+  "A neighbourhood general store on Gangapur Road. We serve about 200 families nearby, all by walk-in and phone orders so far. We want help getting online.": "गंगापुर रोड की एक मोहल्ला जनरल स्टोर। हम आस-पास की लगभग 200 फ़ैमिली को सामान देते हैं, अभी तक सिर्फ़ दुकान पर आकर या फ़ोन पर ऑर्डर से। हमें ऑनलाइन आने में मदद चाहिए।",
+  "Gangapur Road, Nashik": "गंगापुर रोड, नाशिक",
+  "Gangapur Road": "गंगापुर रोड",
+  "5 people": "5 लोग",
+  "Digital Transformation Intern": "डिजिटल ट्रांसफ़ॉर्मेशन इंटर्न",
+  "Set up a Google Business listing so customers can find us on Maps": "Google Business लिस्टिंग बनाना ताकि ग्राहक हमें Maps पर ढूंढ सकें",
+  "Create a WhatsApp Business catalog with our products and prices": "हमारे सामान और दाम के साथ WhatsApp Business कैटलॉग बनाना",
+  "Put up a QR code at the counter so customers can pay digitally": "काउंटर पर QR कोड लगाना ताकि ग्राहक डिजिटल पेमेंट कर सकें",
+  "Final-year BCA, BBA or BCom student": "फ़ाइनल ईयर BCA, BBA या BCom छात्र",
+  "Comfortable with smartphones and everyday apps": "स्मार्टफ़ोन और रोज़मर्रा के ऐप्स चलाने में सहज",
+  "Patient enough to explain things to the owner step by step": "मालिक को क़दम-दर-क़दम समझाने का धैर्य रखने वाला",
+  "At the shop, Gangapur Road": "दुकान पर, गंगापुर रोड",
+  "We make pickles, papads and ready mixes, sold in local shops. We want to go digital: list ourselves on Google, sell on WhatsApp, and reach homes beyond our current shops.": "हम अचार, पापड़ और रेडी मिक्स बनाते हैं, जो लोकल दुकानों में बिकते हैं। हम डिजिटल बनना चाहते हैं: Google पर लिस्ट होना, WhatsApp पर बेचना, और अपनी मौजूदा दुकानों से आगे घरों तक पहुँचना।",
+  "List us on Google so people can find the shop when they search nearby": "हमें Google पर लिस्ट करना ताकि पास में सर्च करने पर लोग दुकान ढूंढ सकें",
+  "Set up a WhatsApp Business catalog so customers can order directly": "WhatsApp Business कैटलॉग बनाना ताकि ग्राहक सीधे ऑर्डर कर सकें",
+  "Post photos of our products on Instagram and reply to messages": "हमारे सामान की फ़ोटो Instagram पर डालना और मैसेज का जवाब देना",
+  "A small accounting office that handles GST, billing and books for about 60 local shops. Most client records are still on paper, and we want to move them onto a simple digital system.": "एक छोटा अकाउंटिंग ऑफ़िस जो लगभग 60 लोकल दुकानों का GST, बिलिंग और हिसाब-किताब देखता है। ज़्यादातर क्लाइंट रिकॉर्ड अभी भी काग़ज़ पर हैं, और हम उन्हें एक आसान डिजिटल सिस्टम पर लाना चाहते हैं।",
+  "Move paper client files into a shared digital record so nothing gets lost": "काग़ज़ी क्लाइंट फ़ाइलों को एक साझा डिजिटल रिकॉर्ड में लाना ताकि कुछ भी न खोए"
 }
 
 export default dict

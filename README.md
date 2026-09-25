@@ -47,6 +47,7 @@ The database is described entirely by the files in `supabase/migrations`. Run in
 | `20260924000002_security_and_realtime.sql` | Row Level Security, minimal grants for the public `anon` role, live updates |
 | `20260924000003_seed_and_reset.sql` | Demo data and the `reset_demo_data()` function behind the "Reset demo data" button |
 | `20260924000004_move_demo_to_nashik.sql` | Moves the demo from Pune to Nashik (the real pilot town). Replaces the seeder and updates rows that still hold the Pune values |
+| `20260925000005_digital_transformation_demo.sql` | Adds Deshmukh General Store and its Digital Transformation Intern opening, and sharpens two existing openings to show the digital-transformation USP. Replaces the seeder and updates or inserts rows |
 
 With the Supabase GitHub integration connected, pushing to the branch it watches applies new migrations to your project. In the Supabase dashboard, open **Project Settings > Integrations > GitHub** and check:
 
@@ -62,7 +63,7 @@ git commit -m "Add Supabase schema and Vercel config"
 git push origin main
 ```
 
-Check **Database > Migrations** in the dashboard. All four should show as applied. Do not edit a migration after it has been applied. Add a new file with a later timestamp instead.
+Check **Database > Migrations** in the dashboard. All five should show as applied. Do not edit a migration after it has been applied. Add a new file with a later timestamp instead.
 
 Prefer the command line? `npx supabase link --project-ref <ref>` then `npx supabase db push` applies the same files.
 
@@ -166,7 +167,7 @@ src/
   types/
 supabase/
   config.toml
-  migrations/  schema, security, seed + reset, move demo to Nashik
+  migrations/  schema, security, seed + reset, move demo to Nashik, digital-transformation demo data
 scripts/       extract-i18n.mjs (finds missing translations)
 vercel.json    hosting settings
 .env.example   the two variables to set

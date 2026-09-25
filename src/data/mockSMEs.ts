@@ -78,7 +78,7 @@ export const mockSMEs: SME[] = [
     staff: '6 people',
     sinceYear: 2014,
     about:
-      'A small accounting office that handles GST, billing and books for about 60 local shops. Busy at every month end.',
+      'A small accounting office that handles GST, billing and books for about 60 local shops. Most client records are still on paper, and we want to move them onto a simple digital system.',
     distanceKm: 2,
     verified: false,
     submittedOn: '2025-10-12',
@@ -97,12 +97,32 @@ export const mockSMEs: SME[] = [
     staff: '25 people',
     sinceYear: 2016,
     about:
-      'We make pickles, papads and ready mixes, sold in local shops. We want to reach more homes on Instagram and WhatsApp.',
+      'We make pickles, papads and ready mixes, sold in local shops. We want to go digital: list ourselves on Google, sell on WhatsApp, and reach homes beyond our current shops.',
     distanceKm: 4,
     verified: false,
     submittedOn: '2025-10-13',
     onboarded: true,
     tone: 'apricot',
+  },
+  {
+    id: 'sme_deshmukh',
+    name: 'Deshmukh General Store',
+    kind: 'General store',
+    ownerName: 'Suresh Deshmukh',
+    ownerFirstName: 'Suresh',
+    phone: '+91 96073 48512',
+    area: 'Gangapur Road, Nashik',
+    town: 'Nashik',
+    staff: '5 people',
+    sinceYear: 2011,
+    about:
+      'A neighbourhood general store on Gangapur Road. We serve about 200 families nearby, all by walk-in and phone orders so far. We want help getting online.',
+    distanceKm: 4,
+    verified: true,
+    visitedOn: '2025-10-14',
+    submittedOn: '2025-10-08',
+    onboarded: true,
+    tone: 'teal',
   },
 ]
 

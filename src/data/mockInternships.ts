@@ -32,6 +32,7 @@ export const mockInternships: Internship[] = [
     tasks: [
       'Prepare GST invoices for clients',
       'Keep a record of bills sent and payments received',
+      'Move paper client files into a shared digital record so nothing gets lost',
       'Call clients kindly to remind them about pending bills',
     ],
     requirements: [
@@ -74,9 +75,9 @@ export const mockInternships: Internship[] = [
     smeId: 'sme_sahyadri',
     title: 'Social Media Intern',
     tasks: [
-      'Post photos of our products on Instagram and WhatsApp',
-      'Reply to customer messages',
-      'Make simple posters in Canva',
+      'List us on Google so people can find the shop when they search nearby',
+      'Set up a WhatsApp Business catalog so customers can order directly',
+      'Post photos of our products on Instagram and reply to messages',
     ],
     requirements: [
       'Final-year student from any course',
@@ -112,5 +113,27 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(6),
+  },
+  {
+    id: 'int_digital',
+    smeId: 'sme_deshmukh',
+    title: 'Digital Transformation Intern',
+    tasks: [
+      'Set up a Google Business listing so customers can find us on Maps',
+      'Create a WhatsApp Business catalog with our products and prices',
+      'Put up a QR code at the counter so customers can pay digitally',
+    ],
+    requirements: [
+      'Final-year BCA, BBA or BCom student',
+      'Comfortable with smartphones and everyday apps',
+      'Patient enough to explain things to the owner step by step',
+    ],
+    stipend: 3500,
+    weeks: 6,
+    hours: '11–5',
+    where: 'At the shop, Gangapur Road',
+    countsForCredit: true,
+    status: 'live',
+    postedAt: daysAgo(0),
   },
 ]
