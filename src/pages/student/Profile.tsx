@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BadgeCheck, LogOut, ShieldCheck } from 'lucide-react'
+import { Award, BadgeCheck, LogOut, ShieldCheck } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../hooks/useApp'
 import { PageTitle } from '../../components/ui/PageHeader'
@@ -7,11 +7,12 @@ import { Card, SectionLabel } from '../../components/ui/Card'
 import { Avatar } from '../../components/ui/Avatar'
 import { TextField } from '../../components/ui/Field'
 import { Chip } from '../../components/ui/Chip'
-import { Button } from '../../components/ui/Button'
+import { Button, LinkButton } from '../../components/ui/Button'
 import { Tag } from '../../components/ui/Tag'
 import { HelperNote } from '../../components/ui/HelperNote'
 import { useToast } from '../../components/ui/Toast'
 import { COURSES, SKILLS } from '../../lib/options'
+import { certifiedCourses } from '../../lib/courses'
 import { t } from '../../lib/i18n'
 import { LanguageButton } from '../../components/navigation/LanguageButton'
 
@@ -25,6 +26,7 @@ export default function StudentProfile() {
   const [course, setCourse] = useState(currentStudent.course)
   const [skills, setSkills] = useState(currentStudent.skills)
 
+  const certified = certifiedCourses(currentStudent)
   const phoneOk = phone.replace(/\D/g, '').length >= 10
   const dirty =
     first !== currentStudent.firstName || last !== currentStudent.lastName || phone !== currentStudent.phone || course !== currentStudent.course || skills.join() !== currentStudent.skills.join()
@@ -91,6 +93,24 @@ export default function StudentProfile() {
         <Button size="lg" full disabled={!dirty || !phoneOk || !first.trim() || !last.trim() || skills.length === 0} onClick={save}>
           {t('Save changes')}
         </Button>
+      </Card>
+
+      <Card className="flex flex-col gap-3 p-5">
+        <SectionLabel>{t('Courses & Certificates')}</SectionLabel>
+        {certified.length > 0 ? (
+          <ul className="flex flex-wrap gap-2" aria-label={t('Setu Certified courses')}>
+            {certified.map((c) => (
+              <li key={c.id}>
+                <Tag tone="trust" icon={<Award className="size-3.5" aria-hidden="true" />}>{t(c.title)}</Tag>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-muted">{t('Finish a free course to get a Setu Certified badge businesses can see.')}</p>
+        )}
+        <div>
+          <LinkButton to="/student/courses" variant="secondary">{t('Go to Courses')}</LinkButton>
+        </div>
       </Card>
 
       <Card className="flex flex-col items-start gap-2 p-5">

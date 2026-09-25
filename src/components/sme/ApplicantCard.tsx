@@ -1,4 +1,4 @@
-import { Lock, Phone } from 'lucide-react'
+import { Award, Lock, Phone } from 'lucide-react'
 import type { Application, Student } from '../../types'
 import { Avatar, toneFor } from '../ui/Avatar'
 import { Tag } from '../ui/Tag'
@@ -7,6 +7,7 @@ import { StatusBadge } from '../ui/StatusBadge'
 import { startsIn } from '../../lib/format'
 import { getLang, t } from '../../lib/i18n'
 import { PARTNER_COLLEGE_SHORT } from '../../lib/config'
+import { certifiedCourses } from '../../lib/courses'
 
 interface Props {
   application: Application
@@ -17,6 +18,7 @@ interface Props {
 
 export function ApplicantCard({ application, student, onAccept, onDecline }: Props) {
   const s = application.status
+  const certified = certifiedCourses(student)
   return (
     <article className="rounded-card bg-white p-4 shadow-card" aria-label={t('Applicant {name}', { name: student.shortName })}>
       <div className="flex items-center gap-3">
@@ -36,6 +38,16 @@ export function ApplicantCard({ application, student, onAccept, onDecline }: Pro
           </li>
         ))}
       </ul>
+
+      {certified.length > 0 && (
+        <ul className="mt-2 flex flex-wrap gap-2" aria-label={t('Setu Certified courses')}>
+          {certified.map((c) => (
+            <li key={c.id}>
+              <Tag tone="trust" icon={<Award className="size-3.5" aria-hidden="true" />}>{t('Setu Certified · {title}', { title: t(c.title) })}</Tag>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {application.source === 'setu' && <p className="mt-3 text-detail text-teal">{t('Added by Setu, who thought this student would suit you.')}</p>}
 

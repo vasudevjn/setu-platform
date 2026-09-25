@@ -1,9 +1,10 @@
-import { BadgeCheck } from 'lucide-react'
+import { Award, BadgeCheck } from 'lucide-react'
 import { useApp } from '../../hooks/useApp'
 import { PageTitle } from '../../components/ui/PageHeader'
 import { Card } from '../../components/ui/Card'
 import { Tag } from '../../components/ui/Tag'
 import { Avatar, toneFor } from '../../components/ui/Avatar'
+import { certifiedCourses } from '../../lib/courses'
 import { plural } from '../../lib/format'
 import { t } from '../../lib/i18n'
 
@@ -15,6 +16,7 @@ export default function AdminStudents() {
       <ul className="grid gap-3 md:grid-cols-2">
         {state.students.map((s) => {
           const apps = state.applications.filter((a) => a.studentId === s.id && a.status !== 'withdrawn')
+          const certified = certifiedCourses(s)
           return (
             <li key={s.id}>
               <Card className="flex h-full flex-col gap-3 p-4">
@@ -32,6 +34,13 @@ export default function AdminStudents() {
                     <li key={k}><Tag tone="neutral">{t(k)}</Tag></li>
                   ))}
                 </ul>
+                {certified.length > 0 && (
+                  <ul className="flex flex-wrap gap-2" aria-label={t('Setu Certified courses')}>
+                    {certified.map((c) => (
+                      <li key={c.id}><Tag tone="trust" icon={<Award className="size-3.5" aria-hidden="true" />}>{t('Setu Certified · {title}', { title: t(c.title) })}</Tag></li>
+                    ))}
+                  </ul>
+                )}
                 <p className="text-detail text-muted">{t('{applications}, {accepted} accepted', { applications: plural(apps.length, 'application'), accepted: apps.filter((a) => a.status === 'accepted' || a.status === 'completed').length })}</p>
               </Card>
             </li>

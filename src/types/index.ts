@@ -23,6 +23,8 @@ export interface Student {
   skills: string[]
   onboarded: boolean
   collegeVerified: boolean
+  /** Ids of lessons finished in Setu's free courses. A course counts as done, and certified, when every one of its lesson ids is in here. */
+  completedLessons: string[]
 }
 
 export interface SME {
@@ -62,6 +64,23 @@ export interface Internship {
   countsForCredit: boolean
   status: InternshipStatus
   postedAt: string
+  /** A free Setu course that fits this role well, mainly technical ones. Shown as a suggestion, never required to apply. */
+  suggestedCourseId?: string
+}
+
+export interface Lesson {
+  id: string
+  title: string
+  body: string
+}
+
+export interface Course {
+  id: string
+  title: string
+  summary: string
+  /** Shown on the certificate and on the student's Setu Certified badge once every lesson is done. */
+  skill: string
+  lessons: Lesson[]
 }
 
 export interface Application {

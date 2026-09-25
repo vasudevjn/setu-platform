@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Heart, ShieldCheck } from 'lucide-react'
+import { Award, Heart, ShieldCheck } from 'lucide-react'
 import { useApp } from '../../hooks/useApp'
 import { applicationFor, findInternship, findSme, isVisibleToStudents } from '../../lib/selectors'
 import { BackButton } from '../../components/ui/PageHeader'
@@ -10,7 +10,10 @@ import { Button, LinkButton } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { Card, SectionLabel } from '../../components/ui/Card'
 import { EmptyState } from '../../components/ui/EmptyState'
+import { HelperNote } from '../../components/ui/HelperNote'
+import { Tag } from '../../components/ui/Tag'
 import { useToast } from '../../components/ui/Toast'
+import { certifiedCourses, findCourse, isCourseComplete } from '../../lib/courses'
 import { shortDate } from '../../lib/format'
 import { cn } from '../../lib/cn'
 import { t } from '../../lib/i18n'
@@ -41,6 +44,9 @@ export default function Opening() {
   const application = applicationFor(state, internship.id, currentStudent.id)
   const applied = application && application.status !== 'withdrawn'
   const saved = state.saved.includes(internship.id)
+  const certified = certifiedCourses(currentStudent)
+  const suggestedCourse = internship.suggestedCourseId ? findCourse(internship.suggestedCourseId) : undefined
+  const suggestedDone = suggestedCourse ? isCourseComplete(currentStudent, suggestedCourse) : false
 
   const onApply = () => {
     setSending(true)
@@ -124,17 +130,44 @@ export default function Opening() {
 
           <section aria-label={t('What the business will see')}>
             <SectionLabel>{t('What {owner} will see', { owner: sme.ownerFirstName })}</SectionLabel>
-            <Card className="mt-2 flex items-center gap-3 p-4">
-              <Avatar name={currentStudent.shortName} tone="apricot" />
-              <div className="min-w-0">
-                <p className="font-semibold">{currentStudent.shortName}</p>
-                <p className="text-detail text-muted">
-                  {t(currentStudent.course)} · {t(currentStudent.year)} · {currentStudent.skills.map((skill) => t(skill)).join(', ')}
-                </p>
+            <Card className="mt-2 flex flex-col gap-3 p-4">
+              <div className="flex items-center gap-3">
+                <Avatar name={currentStudent.shortName} tone="apricot" />
+                <div className="min-w-0">
+                  <p className="font-semibold">{currentStudent.shortName}</p>
+                  <p className="text-detail text-muted">
+                    {t(currentStudent.course)} · {t(currentStudent.year)} · {currentStudent.skills.map((skill) => t(skill)).join(', ')}
+                  </p>
+                </div>
               </div>
+              {certified.length > 0 && (
+                <ul className="flex flex-wrap gap-2" aria-label={t('Setu Certified courses')}>
+                  {certified.map((c) => (
+                    <li key={c.id}>
+                      <Tag tone="trust" icon={<Award className="size-3.5" aria-hidden="true" />}>{t('Setu Certified · {title}', { title: t(c.title) })}</Tag>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Card>
             <p className="mt-2 text-detail text-muted">{t('Your phone number stays hidden until {owner} accepts you.', { owner: sme.ownerFirstName })}</p>
           </section>
+
+          {suggestedCourse && (
+            <HelperNote tone="apricot">
+              {suggestedDone
+                ? t("You're Setu Certified in {title}. {owner} will see that.", { title: t(suggestedCourse.title), owner: sme.ownerFirstName })
+                : t('A free course, {title}, fits this role well. Finish it to stand out.', { title: t(suggestedCourse.title) })}
+              {!suggestedDone && (
+                <>
+                  {' '}
+                  <Link to={`/student/courses/${suggestedCourse.id}`} className="font-semibold underline underline-offset-4">
+                    {t('Start the course')}
+                  </Link>
+                </>
+              )}
+            </HelperNote>
+          )}
         </div>
 
         {/* Sticky CTA on phones, side card on desktop */}

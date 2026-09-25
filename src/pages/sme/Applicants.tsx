@@ -8,6 +8,7 @@ import { EmptyState } from '../../components/ui/EmptyState'
 import { LinkButton } from '../../components/ui/Button'
 import { useToast } from '../../components/ui/Toast'
 import { plural, titleCase } from '../../lib/format'
+import { certifiedCourses } from '../../lib/courses'
 import { t } from '../../lib/i18n'
 
 export default function Applicants() {
@@ -25,7 +26,12 @@ export default function Applicants() {
     )
   }
 
-  const apps = applicantsFor(state, internship.id)
+  // Setu Certified students are shown first. Otherwise, most recent application first.
+  const apps = applicantsFor(state, internship.id).sort((a, b) => {
+    const certA = certifiedCourses(findStudent(state, a.studentId)!).length > 0 ? 0 : 1
+    const certB = certifiedCourses(findStudent(state, b.studentId)!).length > 0 ? 0 : 1
+    return certA - certB
+  })
 
   const accept = (appId: string, name: string) => {
     setStatus(appId, 'accepted')

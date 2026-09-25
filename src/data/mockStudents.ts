@@ -16,6 +16,7 @@ export const mockStudents: Student[] = [
     skills: ['Tally', 'Excel', 'Customer service'],
     onboarded: true,
     collegeVerified: true,
+    completedLessons: [],
   },
   {
     id: 'stu_aman',
@@ -30,6 +31,7 @@ export const mockStudents: Student[] = [
     skills: ['Excel', 'Stock keeping'],
     onboarded: true,
     collegeVerified: true,
+    completedLessons: ['lsn_exceltally_1'],
   },
   {
     id: 'stu_neha',
@@ -44,6 +46,7 @@ export const mockStudents: Student[] = [
     skills: ['Social media', 'Canva', 'Communication'],
     onboarded: true,
     collegeVerified: true,
+    completedLessons: [],
   },
   {
     id: 'stu_rahul',
@@ -58,6 +61,7 @@ export const mockStudents: Student[] = [
     skills: ['Billing', 'Excel', 'Basic English'],
     onboarded: true,
     collegeVerified: true,
+    completedLessons: [],
   },
   {
     id: 'stu_sneha',
@@ -72,6 +76,7 @@ export const mockStudents: Student[] = [
     skills: ['Tally', 'GST basics'],
     onboarded: true,
     collegeVerified: true,
+    completedLessons: ['lsn_gstbilling_1', 'lsn_gstbilling_2', 'lsn_gstbilling_3'],
   },
   {
     id: 'stu_karan',
@@ -86,6 +91,7 @@ export const mockStudents: Student[] = [
     skills: ['Excel', 'Data entry', 'Customer calls'],
     onboarded: true,
     collegeVerified: true,
+    completedLessons: ['lsn_digital_1', 'lsn_digital_2', 'lsn_digital_3'],
   },
 ]
 

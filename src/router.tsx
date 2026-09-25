@@ -20,6 +20,8 @@ const routes: RouteObject[] = [
       { path: 'applied/:id', handle: { focus: true }, ...page(() => import('./pages/student/Applied')) },
       { path: 'applications', ...page(() => import('./pages/student/Applications')) },
       { path: 'applications/:id', handle: { focus: true }, ...page(() => import('./pages/student/ApplicationStatus')) },
+      { path: 'courses', ...page(() => import('./pages/student/Courses')) },
+      { path: 'courses/:id', handle: { focus: true }, ...page(() => import('./pages/student/CourseDetail')) },
       { path: 'profile', ...page(() => import('./pages/student/Profile')) },
       { path: 'notifications', lazy: async () => ({ Component: () => <NotificationsFor role="student" /> }) },
       { path: '*', element: <Navigate to="/student" replace /> },

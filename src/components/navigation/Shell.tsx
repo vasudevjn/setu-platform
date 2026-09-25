@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, Navigate, Outlet, useLocation, useMatches } from 'react-router-dom'
 import {
   Bell,
+  BookOpen,
   Briefcase,
   Building2,
   ClipboardList,
@@ -36,7 +37,8 @@ interface NavItem {
 const nav: Record<Role, NavItem[]> = {
   student: [
     { to: '/student', label: 'Home', icon: House, end: true },
-    { to: '/student/applications', label: 'My Applications', icon: Briefcase },
+    { to: '/student/applications', label: 'My Applications', short: 'Applications', icon: Briefcase },
+    { to: '/student/courses', label: 'Courses', icon: BookOpen },
     { to: '/student/profile', label: 'Profile', icon: User },
   ],
   sme: [

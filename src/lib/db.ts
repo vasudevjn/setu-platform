@@ -44,6 +44,7 @@ const toRow = {
     skills: s.skills,
     onboarded: s.onboarded,
     college_verified: s.collegeVerified,
+    completed_lessons: s.completedLessons,
   }),
   smes: (s: SME): Row => ({
     id: s.id,
@@ -77,6 +78,7 @@ const toRow = {
     counts_for_credit: i.countsForCredit,
     status: i.status,
     posted_at: iso(i.postedAt),
+    suggested_course_id: nullable(i.suggestedCourseId),
   }),
   applications: (a: Application): Row => ({
     id: a.id,
@@ -119,6 +121,7 @@ const fromRow = {
     skills: (r.skills as string[]) ?? [],
     onboarded: r.onboarded as boolean,
     collegeVerified: r.college_verified as boolean,
+    completedLessons: (r.completed_lessons as string[]) ?? [],
   }),
   smes: (r: Row): SME => ({
     id: r.id as string,
@@ -152,6 +155,7 @@ const fromRow = {
     countsForCredit: r.counts_for_credit as boolean,
     status: r.status as Internship['status'],
     postedAt: iso(r.posted_at),
+    suggestedCourseId: (r.suggested_course_id as string | null) ?? undefined,
   }),
   applications: (r: Row): Application => ({
     id: r.id as string,

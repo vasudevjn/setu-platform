@@ -24,6 +24,7 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(3),
+    suggestedCourseId: 'course_excel_tally',
   },
   {
     id: 'int_billing',
@@ -47,6 +48,7 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(2),
+    suggestedCourseId: 'course_gst_billing',
   },
   {
     id: 'int_operations',
@@ -69,6 +71,7 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(5),
+    suggestedCourseId: 'course_excel_tally',
   },
   {
     id: 'int_social',
@@ -91,6 +94,7 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(1),
+    suggestedCourseId: 'course_digital',
   },
   {
     id: 'int_inventory',
@@ -113,6 +117,7 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(6),
+    suggestedCourseId: 'course_excel_tally',
   },
   {
     id: 'int_digital',
@@ -135,5 +140,6 @@ export const mockInternships: Internship[] = [
     countsForCredit: true,
     status: 'live',
     postedAt: daysAgo(0),
+    suggestedCourseId: 'course_digital',
   },
 ]
