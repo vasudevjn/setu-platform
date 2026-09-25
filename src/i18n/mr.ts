@@ -695,7 +695,14 @@ const dict: Record<string, string> = {
   "Set up a WhatsApp Business catalog so customers can order directly": "WhatsApp Business कॅटलॉग तयार करणे जेणेकरून ग्राहक थेट ऑर्डर करू शकतील",
   "Post photos of our products on Instagram and reply to messages": "आमच्या मालाचे फोटो Instagram वर टाकणे आणि मेसेजना उत्तर देणे",
   "A small accounting office that handles GST, billing and books for about 60 local shops. Most client records are still on paper, and we want to move them onto a simple digital system.": "सुमारे 60 लोकल दुकानांचं GST, बिलिंग आणि हिशोब बघणारं एक छोटं अकाउंटिंग ऑफिस. बहुतेक क्लायंट रेकॉर्ड अजूनही कागदावर आहेत, आणि आम्हाला ते एका सोप्या डिजिटल सिस्टमवर आणायचं आहे.",
-  "Move paper client files into a shared digital record so nothing gets lost": "कागदी क्लायंट फाइल्स एका शेअर्ड डिजिटल रेकॉर्डमध्ये आणणे जेणेकरून काहीही हरवणार नाही"
+  "Move paper client files into a shared digital record so nothing gets lost": "कागदी क्लायंट फाइल्स एका शेअर्ड डिजिटल रेकॉर्डमध्ये आणणे जेणेकरून काहीही हरवणार नाही",
+  "Digital marketing": "डिजिटल मार्केटिंग",
+  "Google listing": "Google लिस्टिंग",
+  "WhatsApp Business": "WhatsApp Business",
+  "Digital payments": "डिजिटल पेमेंट",
+  "Set up our Google Business listing": "आमची Google Business लिस्टिंग तयार करणे",
+  "Set up a WhatsApp Business catalog for orders": "ऑर्डरसाठी WhatsApp Business कॅटलॉग तयार करणे",
+  "Set up QR codes for digital payments": "डिजिटल पेमेंटसाठी QR कोड लावणे"
 }
 
 export default dict

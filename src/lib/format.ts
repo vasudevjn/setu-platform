@@ -86,6 +86,9 @@ export function titleFromTasks(tasks: string[]) {
     'Stock records': 'Inventory Assistant',
     'Customer calls': 'Customer Support Intern',
     'Social media': 'Social Media Intern',
+    'Google listing': 'Digital Transformation Intern',
+    'WhatsApp Business': 'Digital Transformation Intern',
+    'Digital payments': 'Digital Transformation Intern',
     Delivery: 'Delivery Assistant',
   }
   const first = tasks.find((task) => map[task])

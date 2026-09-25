@@ -26,6 +26,9 @@ const TASK_SENTENCE: Record<string, string> = {
   'Stock records': 'Keep stock records up to date',
   'Customer calls': 'Call customers and answer their questions',
   'Social media': 'Post on social media and reply to messages',
+  'Google listing': 'Set up our Google Business listing',
+  'WhatsApp Business': 'Set up a WhatsApp Business catalog for orders',
+  'Digital payments': 'Set up QR codes for digital payments',
   Delivery: 'Help with deliveries and dispatch',
 }
 
